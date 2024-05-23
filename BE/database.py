@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -34,3 +34,8 @@ def get_table(session, table_class):
 def row_exists(session, variable_name, variable, row_class):
     kwargs = {variable_name: variable}
     return session.query(row_class).filter_by(**kwargs).first() is not None
+
+
+def get_foreign_key_id(session, model, token: str) -> int:
+    """Helper function to get the foreign key ID from the dictionary table"""
+    return session.execute(select(model.id).where(model.token == token)).scalar_one()
