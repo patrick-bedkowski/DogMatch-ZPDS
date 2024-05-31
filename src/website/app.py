@@ -53,7 +53,8 @@ def recommend():
 def main():
     global fields
 
-    st.set_page_config(layout="wide")
+    # st.set_page_config(layout="wide")
+    st.set_page_config(page_title="DogMatch")
 
     # Streamlit UI
     title = """
@@ -63,15 +64,15 @@ def main():
     """
     st.markdown(title, unsafe_allow_html=True)
 
-    css = """
-    <style>
-    .stApp {
-        max-width: 900px;
-        margin: 0 auto;
-    }
-    </style>
-    """
-    st.markdown(css, unsafe_allow_html=True)
+    # css = """
+    # <style>
+    # .stApp {
+    #     max-width: 1000px;
+    #     margin: 0 auto;
+    # }
+    # </style>
+    # """
+    # st.markdown(css, unsafe_allow_html=True)
 
     # Input fields
     fields = [
@@ -85,7 +86,7 @@ def main():
         "Coat Length",
         "Openness To Strangers",
         "Playfulness Level",
-        "Watchdog/Protective Nature",
+        "Protective Nature",  # original: Watchdog/Protective Nature
         "Adaptability Level",
         "Trainability Level",
         "Energy Level",
