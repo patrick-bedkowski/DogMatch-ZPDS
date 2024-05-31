@@ -7,71 +7,124 @@ Created on Fri May 24 17:47:00 2024
 
 import numpy as np
 import pickle
-import pandas as pd
-# from flasgger import Swagger
 import streamlit as st
 import json
 
-# Load recommender
-pickle_in = open("./src/recommender/model.pkl", "rb")
-recommender = pickle.load(pickle_in)
+
+# Function to load the recommender model
+def load_model():
+    with open("./src/recommender/model.pkl", "rb") as file:
+        return pickle.load(file)
 
 
-# @app.route('/')
-def welcome():
-    return "Welcome All"
+# Function to load the breed code to name mapping
+def load_code_to_breed():
+    with open("./src/recommender/code_to_breed.json", "r") as file:
+        return json.load(file)
 
 
-# @app.route('/predict',methods=["Get"])
-def predict_breed(user_input: np.array):
-    with open("./src/recommender/code_to_breed.json", "r") as json_file:
-        code_to_breed = json.load(json_file)
-    prediction = recommender.predict([user_input])[0]
-    breed = code_to_breed[str(prediction)]
-    print(breed)
-    return breed
+def randomize_inputs():
+    st.session_state.user_input = np.random.randint(
+        1, 6, size=len(fields)
+    ).tolist()
 
 
+def reset_inputs():
+    st.session_state.user_input = [3] * len(fields)
+
+
+# Recommend the breed based on user input
+def recommend():
+    recommender = load_model()
+    code_to_breed = load_code_to_breed()
+    prediction = recommender.predict([st.session_state.user_input])[0]
+    breed = code_to_breed.get(str(prediction), "Unknown")
+
+    if breed != "Unknown":
+        breed = breed[:-1]  # convert to singular form (remove "s" at the end)
+        st.session_state.recommendation = f'Recommended breed is: "{breed}"'
+        st.session_state.error_message = ""
+    else:
+        st.session_state.recommendation = ""
+        st.session_state.error_message = 'An error occurred'
+
+
+# Main function to run the Streamlit app
 def main():
-    st.title("DogMatch")
-    html_temp = """
-    <div style="background-color:tomato;padding:10px">
-    <h2 style="color:white;text-align:center;">Streamlit DogMatch ML App </h2>
+    global fields
+
+    st.set_page_config(layout="wide")
+
+    # Streamlit UI
+    title = """
+    <div style="background-color:tomato;">
+    <h2 style="color:white;text-align:center;">DogMatch</h2>
     </div>
     """
+    st.markdown(title, unsafe_allow_html=True)
 
-    st.markdown(html_temp, unsafe_allow_html=True)
+    css = """
+    <style>
+    .stApp {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
 
-    affectionate_with_family = st.number_input("Affectionate With Family", 3)
-    good_with_young_children = st.number_input("Good With Young Children", 3)
-    good_with_other_dogs = st.number_input("Good With Other Dogs", 3)
-    shedding_level = st.number_input("Shedding Level", 2)
-    coat_grooming_frequency = st.number_input("Coat Grooming Frequency", 3)
-    drooling_level = st.number_input("Drooling Level", 2)
-    coat_type = st.number_input("Coat Type", 3)
-    coat_length = st.number_input("Coat Length", 2)
-    openness_to_strangers = st.number_input("Openness To Strangers", 3)
-    playfulness_level = st.number_input("Playfulness Level", 2)
-    watchdog_protective_nature = st.number_input("Watchdog/Protective Nature", 3)
-    adaptability_level = st.number_input("Adaptability Level", 2)
-    trainability_level = st.number_input("Trainability Level", 2)
-    energy_level = st.number_input("Energy Level", 3)
-    barking_level = st.number_input("Barking Level", 2)
-    mental_stimulation_needs = st.number_input("Mental Stimulation Needs", 2)
+    # Input fields
+    fields = [
+        "Affectionate With Family",
+        "Good With Young Children",
+        "Good With Other Dogs",
+        "Shedding Level",
+        "Coat Grooming Frequency",
+        "Drooling Level",
+        "Coat Type",
+        "Coat Length",
+        "Openness To Strangers",
+        "Playfulness Level",
+        "Watchdog/Protective Nature",
+        "Adaptability Level",
+        "Trainability Level",
+        "Energy Level",
+        "Barking Level",
+        "Mental Stimulation Needs"
+    ]
 
-    result = ""
+    # Initialize session state for input values if not present
+    if "user_input" not in st.session_state:
+        st.session_state.user_input = [3] * len(fields)
+    if "recommendation" not in st.session_state:
+        st.session_state.recommendation = ""
+    if "error_message" not in st.session_state:
+        st.session_state.error_message = ""
 
-    user_input = np.array([affectionate_with_family, good_with_young_children, good_with_other_dogs, shedding_level,
-                            coat_grooming_frequency, drooling_level, coat_type, coat_length, openness_to_strangers,
-                            playfulness_level, watchdog_protective_nature, adaptability_level, trainability_level,
-                            energy_level, barking_level, mental_stimulation_needs])
+    with st.container():
+        # Input collection with sliders arranged in columns
+        col_1, col_2, col_3, col_4 = st.columns(4)
+        for i, field in enumerate(fields):
+            col_index = i // 4
+            user_input = [col_1, col_2, col_3, col_4][col_index].slider(
+                field, 1, 5, st.session_state.user_input[i]
+            )
+            st.session_state.user_input[i] = user_input
 
-    if st.button("Predict"):
-        result = predict_breed(user_input)
-    st.success('Most suitable breed is {}'.format(result))
-    if st.button("About"):
-        st.text("Let's Learn")
-        st.text("Built with Streamlit")
+        # Buttons with callbacks
+        st.button("Reset", on_click=reset_inputs)
+        st.button("Randomize", on_click=randomize_inputs)
+        st.button("Recommend", on_click=recommend)
+
+        # Placeholders for messages
+        recommendation_placeholder = st.empty()
+        error_placeholder = st.empty()
+
+        # Display the recommendation or error message
+        if st.session_state.recommendation:
+            recommendation_placeholder.success(st.session_state.recommendation)
+        if st.session_state.error_message:
+            error_placeholder.error(st.session_state.error_message)
 
 
 if __name__ == '__main__':
