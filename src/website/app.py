@@ -42,11 +42,11 @@ def recommend():
 
     if breed != "Unknown":
         breed = breed[:-1]  # convert to singular form (remove "s" at the end)
-        st.session_state.recommendation = f'Recommended breed is: "{breed}"'
+        st.session_state.recommendation = f"Recommended breed is: \"{breed}\""
         st.session_state.error_message = ""
     else:
         st.session_state.recommendation = ""
-        st.session_state.error_message = 'An error occurred'
+        st.session_state.error_message = "An error occurred"
 
 
 # Main function to run the Streamlit app
@@ -54,7 +54,7 @@ def main():
     global fields
 
     # st.set_page_config(layout="wide")
-    st.set_page_config(page_title="DogMatch")
+    st.set_page_config(page_title="DogMatch", page_icon="🐕")
 
     # Streamlit UI
     title = """
@@ -128,5 +128,5 @@ def main():
             error_placeholder.error(st.session_state.error_message)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
