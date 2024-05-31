@@ -9,6 +9,7 @@ import numpy as np
 import pickle
 import streamlit as st
 import json
+import pandas as pd
 
 
 # Function to load the recommender model
@@ -41,10 +42,15 @@ def recommend():
     breed = code_to_breed.get(str(prediction), "Unknown")
 
     if breed != "Unknown":
+        breeds_df = pd.read_csv("./data/breed_rank.csv")
+        breed_row = breeds_df[breeds_df["Breed"] == breed]
+        st.session_state.breed_image_url = breed_row.iloc[0]["Image"]
+
         breed = breed[:-1]  # convert to singular form (remove "s" at the end)
         st.session_state.recommendation = f"Recommended breed is: \"{breed}\""
         st.session_state.error_message = ""
     else:
+        st.session_state.breed_image_url = ""
         st.session_state.recommendation = ""
         st.session_state.error_message = "An error occurred"
 
@@ -101,6 +107,8 @@ def main():
         st.session_state.recommendation = ""
     if "error_message" not in st.session_state:
         st.session_state.error_message = ""
+    if "breed_image_url" not in st.session_state:
+        st.session_state.breed_image_url = ""  
 
     with st.container():
         # Input collection with sliders arranged in columns
@@ -117,15 +125,18 @@ def main():
         st.button("Randomize", on_click=randomize_inputs)
         st.button("Recommend", on_click=recommend)
 
-        # Placeholders for messages
+        # Placeholders
         recommendation_placeholder = st.empty()
         error_placeholder = st.empty()
+        breed_image = st.empty()
 
         # Display the recommendation or error message
         if st.session_state.recommendation:
             recommendation_placeholder.success(st.session_state.recommendation)
         if st.session_state.error_message:
             error_placeholder.error(st.session_state.error_message)
+        if st.session_state.breed_image_url:
+            breed_image.image(st.session_state.breed_image_url)
 
 
 if __name__ == "__main__":
