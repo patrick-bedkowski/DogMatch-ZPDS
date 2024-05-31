@@ -108,7 +108,7 @@ def main():
     if "error_message" not in st.session_state:
         st.session_state.error_message = ""
     if "breed_image_url" not in st.session_state:
-        st.session_state.breed_image_url = ""  
+        st.session_state.breed_image_url = "" 
 
     with st.container():
         # Input collection with sliders arranged in columns
