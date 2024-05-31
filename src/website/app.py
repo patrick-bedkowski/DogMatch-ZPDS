@@ -73,5 +73,6 @@ def main():
         st.text("Let's Learn")
         st.text("Built with Streamlit")
 
+
 if __name__ == '__main__':
     main()
