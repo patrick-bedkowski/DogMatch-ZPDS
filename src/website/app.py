@@ -13,7 +13,7 @@ import streamlit as st
 import json
 
 # Load recommender
-pickle_in = open("../recommender/model.pkl", "rb")
+pickle_in = open("./src/recommender/model.pkl", "rb")
 recommender = pickle.load(pickle_in)
 
 
@@ -24,7 +24,7 @@ def welcome():
 
 # @app.route('/predict',methods=["Get"])
 def predict_breed(user_input: np.array):
-    with open("../recommender/code_to_breed.json", "r") as json_file:
+    with open("./src/recommender/code_to_breed.json", "r") as json_file:
         code_to_breed = json.load(json_file)
     prediction = recommender.predict([user_input])[0]
     breed = code_to_breed[str(prediction)]
