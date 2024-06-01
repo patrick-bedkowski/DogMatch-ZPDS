@@ -16,13 +16,15 @@ def main():
     st.set_page_config(page_title="DogMatch", page_icon="🐶")
 
     # Streamlit UI
-    title = """
-    <div style="background-color:orange;">
-    <h2 style="color:black;text-align:center;">DogMatch</h2>
-    </div>
-    <br>
-    """
-    st.markdown(title, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="background-color:orange;">
+        <h2 style="color:black;text-align:center;">DogMatch</h2>
+        </div>
+        <br>
+        """,
+        unsafe_allow_html=True
+    )
 
     breeds = f.get_breeds()
     breeds.insert(0, "")

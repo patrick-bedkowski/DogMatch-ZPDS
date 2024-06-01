@@ -27,13 +27,26 @@ def main():
     st.set_page_config(page_title="DogMatch", page_icon="🐶")
 
     # Streamlit UI
-    title = """
-    <div style="background-color:orange;">
-    <h2 style="color:black;text-align:center;">DogMatch</h2>
-    </div>
-    <br>
-    """
-    st.markdown(title, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="background-color:orange;">
+        <h2 style="color:black;text-align:center;">DogMatch</h2>
+        </div>
+        <br>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <style>
+        button[kind="primary"] {
+            color: black;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     if "name" not in st.session_state:
         st.session_state.name = ""
@@ -61,7 +74,7 @@ def main():
         label="Zdjęcie", type=["png", "jpg", "bmp", "tiff"]
     )
 
-    st.button("Dodaj", on_click=add_dog)
+    st.button("Dodaj", on_click=add_dog, type="primary")
 
     success_placeholder = st.empty()
     error_placeholder = st.empty()

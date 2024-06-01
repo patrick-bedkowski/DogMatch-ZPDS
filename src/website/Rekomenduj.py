@@ -44,12 +44,15 @@ def recommend():
         st.session_state.breed_image_url = f.get_breed_image_url(breed)
         print(breed)
         breed = breed[:-1]  # convert to singular form (remove "s" at the end)
-        st.session_state.recommendation = f"Recommended breed is: \"{breed}\""
+        st.session_state.recommendation = (
+            f"Rekomendowana rasa to: \"{breed}\""
+            # "[Przeglądaj dostępne psy](Przeglądaj_Psy)"
+        )
         st.session_state.error_message = ""
     else:
         st.session_state.breed_image_url = ""
         st.session_state.recommendation = ""
-        st.session_state.error_message = "An error occurred"
+        st.session_state.error_message = "Wystąpił błąd"
 
 
 def main():
@@ -60,22 +63,25 @@ def main():
     # st.sidebar.header("Recommend")
 
     # Streamlit UI
-    title = """
-    <div style="background-color:orange;">
-    <h2 style="color:black;text-align:center;">DogMatch</h2>
-    </div>
-    """
-    st.markdown(title, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="background-color:orange;">
+        <h2 style="color:black;text-align:center;">DogMatch</h2>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    # css = """
-    # <style>
-    # .stApp {
-    #     max-width: 1000px;
-    #     margin: 0 auto;
-    # }
-    # </style>
-    # """
-    # st.markdown(css, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <style>
+        button[kind="primary"] {
+            color: black;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     # Input fields
     fields = f.get_traits_PL()
@@ -108,9 +114,9 @@ def main():
             st.session_state.user_input[i] = user_input
 
         # Buttons with callbacks
-        st.button("Reset", on_click=reset_inputs)
-        st.button("Losowo (DEV)", on_click=randomize_inputs)
-        st.button("Rekomenduj", on_click=recommend)
+        st.button("Domyślne", on_click=reset_inputs)
+        st.button("Losowe (DEV)", on_click=randomize_inputs)
+        st.button("Rekomenduj", on_click=recommend, type="primary")
 
         # Placeholders
         recommendation_placeholder = st.empty()
