@@ -60,28 +60,9 @@ def main():
 
     # st.set_page_config(layout="wide")
     st.set_page_config(page_title="DogMatch", page_icon="🐶")
-    # st.sidebar.header("Recommend")
 
-    # Streamlit UI
-    st.markdown(
-        """
-        <div style="background-color:orange;">
-        <h2 style="color:black;text-align:center;">DogMatch</h2>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        """
-        <style>
-        button[kind="primary"] {
-            color: black;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    f.add_page_header()
+    f.adjust_primary_buttons_colors()
 
     # Input fields
     fields = f.get_traits_PL()
@@ -97,12 +78,14 @@ def main():
         st.session_state.breed_image_url = ""
 
     with st.container():
-        title = """
-        <br>
-        <h3 style="color:white;text-align:center;">Cechy psa</h3>
-        <br>
-        """
-        st.markdown(title, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <br>
+            <h3 style="color:white;text-align:center;">Cechy psa</h3>
+            <br>
+            """,
+            unsafe_allow_html=True
+        )
 
         # Input collection with sliders arranged in columns
         col_1, col_2, col_3, col_4 = st.columns(4)

@@ -9,22 +9,10 @@ import functions as f
 
 
 def main():
-
-    # st.title("Page two")
-
-    # st.set_page_config(layout="wide")
     st.set_page_config(page_title="DogMatch", page_icon="🐶")
 
-    # Streamlit UI
-    st.markdown(
-        """
-        <div style="background-color:orange;">
-        <h2 style="color:black;text-align:center;">DogMatch</h2>
-        </div>
-        <br>
-        """,
-        unsafe_allow_html=True
-    )
+    f.add_page_header()
+    f.adjust_primary_buttons_colors()
 
     breeds = f.get_breeds()
     breeds.insert(0, "")
