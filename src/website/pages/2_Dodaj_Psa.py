@@ -24,7 +24,7 @@ def main():
     # st.title("Page two")
 
     # st.set_page_config(layout="wide")
-    st.set_page_config(page_title="DogMatch", page_icon="🐕")
+    st.set_page_config(page_title="DogMatch", page_icon="🐶")
 
     # Streamlit UI
     title = """

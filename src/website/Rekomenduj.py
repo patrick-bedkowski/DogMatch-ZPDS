@@ -56,7 +56,7 @@ def main():
     global fields
 
     # st.set_page_config(layout="wide")
-    st.set_page_config(page_title="DogMatch", page_icon="🐕")
+    st.set_page_config(page_title="DogMatch", page_icon="🐶")
     # st.sidebar.header("Recommend")
 
     # Streamlit UI
