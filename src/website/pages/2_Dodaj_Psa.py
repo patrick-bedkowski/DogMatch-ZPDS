@@ -28,8 +28,8 @@ def main():
 
     # Streamlit UI
     title = """
-    <div style="background-color:tomato;">
-    <h2 style="color:white;text-align:center;">DogMatch</h2>
+    <div style="background-color:orange;">
+    <h2 style="color:black;text-align:center;">DogMatch</h2>
     </div>
     <br>
     """
