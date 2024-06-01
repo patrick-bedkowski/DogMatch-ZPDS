@@ -23,9 +23,11 @@ def main():
     """
     st.markdown(title, unsafe_allow_html=True)
 
+    breeds = f.get_breeds()
+    breeds.insert(0, "")
     st.session_state.breed = st.selectbox(
         'Rasa',
-        f.get_breeds()
+        breeds
     )
 
     st.write("TODO")

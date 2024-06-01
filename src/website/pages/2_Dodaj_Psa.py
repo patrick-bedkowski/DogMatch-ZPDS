@@ -9,14 +9,14 @@ import functions as f
 
 
 def add_dog():
-    if st.session_state.name:
+    if st.session_state.name and st.session_state.breed in f.get_breeds():
         st.session_state.success_message = "Dodano psa"
         st.session_state.error_message = ""
 
         # TODO: actual adding to DB
     else:
         st.session_state.success_message = ""
-        st.session_state.error_message = "Wprowadź imię"
+        st.session_state.error_message = "Wprowadź rasę oraz imię"
 
 
 def main():
@@ -41,9 +41,11 @@ def main():
     if "error_message" not in st.session_state:
         st.session_state.error_message = ""
 
+    breeds = f.get_breeds()
+    breeds.insert(0, "")
     st.session_state.breed = st.selectbox(
         'Rasa',
-        f.get_breeds()
+        breeds
     )
 
     st.session_state.name = st.text_input(
