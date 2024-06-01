@@ -8,12 +8,24 @@ import streamlit as st
 import functions as f
 
 
+def add_dog_to_db():
+    # TODO: finish
+    breed = st.session_state.breed
+    name = st.session_state.name
+    description = st.session_state.description
+    photo = st.session_state.photo
+    return False
+
+
 def add_dog():
     if st.session_state.name and st.session_state.breed in f.get_breeds():
-        st.session_state.success_message = "Dodano psa"
-        st.session_state.error_message = ""
-
-        # TODO: actual adding to DB
+        result = add_dog_to_db()
+        if result:
+            st.session_state.success_message = "Dodano psa"
+            st.session_state.error_message = ""
+        else:
+            st.session_state.success_message = ""
+            st.session_state.error_message = "Wystąpił błąd"
     else:
         st.session_state.success_message = ""
         st.session_state.error_message = "Wprowadź rasę oraz imię"
