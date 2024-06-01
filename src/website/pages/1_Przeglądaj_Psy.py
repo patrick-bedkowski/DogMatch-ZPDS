@@ -14,7 +14,7 @@ def main():
     f.add_page_header()
     f.adjust_primary_buttons_colors()
 
-    breeds = f.get_breeds()
+    breeds = f.get_breeds_db()
     breeds.insert(0, "")
     st.session_state.breed = st.selectbox(
         'Rasa',

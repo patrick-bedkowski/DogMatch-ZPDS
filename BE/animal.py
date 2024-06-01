@@ -1,5 +1,8 @@
 from sqlalchemy import CheckConstraint, Column, ForeignKey, Integer, String
-from database import Base
+
+import sys
+sys.path.append('../DogMatch')
+from BE.database import Base
 
 
 class DictDogBreed(Base):

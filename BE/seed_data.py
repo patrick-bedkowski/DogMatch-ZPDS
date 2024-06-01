@@ -1,6 +1,9 @@
-from database import get_foreign_key_id, row_exists
-from animal import Animal, DictCoatLength, DictCoatType, DictDogBreed, DogBreed
 import pandas as pd
+
+import sys
+sys.path.append('../DogMatch')
+from BE.database import get_foreign_key_id, row_exists
+from BE.animal import Animal, DictCoatLength, DictCoatType, DictDogBreed, DogBreed
 
 
 def seedDataDictBreeds(session, data_path) -> None:

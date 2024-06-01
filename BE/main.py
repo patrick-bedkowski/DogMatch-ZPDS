@@ -1,9 +1,12 @@
-from ask_model import predict, prepare_model
-from configuration import BREED_TRAITS_PATH, MODEL_PATH
-from seed_data import seedData
-from database import createConnection
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+
+import sys
+sys.path.append('../DogMatch')
+from BE.seed_data import seedData
+from BE.database import createConnection
+from BE.configuration import BREED_TRAITS_PATH, MODEL_PATH
+from BE.ask_model import predict, prepare_model
 
 
 def main():

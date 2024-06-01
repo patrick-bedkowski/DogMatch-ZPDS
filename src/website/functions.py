@@ -6,13 +6,47 @@
 import pandas as pd
 import streamlit as st
 
+import sys
+sys.path.append('../DogMatch')
+from BE import database
+from BE import configuration
+from BE import seed_data
+
 
 def get_breeds() -> list:
     df = pd.read_csv("./data/breed_rank.csv")
     return df['Breed'].unique().tolist()
 
 
+def get_breeds_db() -> list:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    breeds = database.get_table(session, seed_data.DictDogBreed)
+    return [breed.token for breed in breeds]
+
+
 def get_traits() -> list:
+    return [
+        "Affectionate With Family",
+        "Good With Young Children",
+        "Good With Other Dogs",
+        "Shedding Level",
+        "Coat Grooming Frequency",
+        "Drooling Level",
+        "Coat Type",
+        "Coat Length",
+        "Openness To Strangers",
+        "Playfulness Level",
+        "Watchdog/Protective Nature",
+        "Adaptability Level",
+        "Trainability Level",
+        "Energy Level",
+        "Barking Level",
+        "Mental Stimulation Needs"
+    ]
+
+
+def get_traits_db() -> list:
     return [
         "Affectionate With Family",
         "Good With Young Children",

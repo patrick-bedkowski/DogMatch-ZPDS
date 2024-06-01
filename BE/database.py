@@ -2,7 +2,9 @@ from sqlalchemy import create_engine, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from configuration import DB_CONNECTION
+import sys
+sys.path.append('../DogMatch')
+from BE.configuration import DB_CONNECTION
 
 Base = declarative_base()
 
