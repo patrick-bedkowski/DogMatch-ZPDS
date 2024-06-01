@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri May 24 17:47:00 2024
-
 @author: dogmatch.team.co
 """
 
@@ -9,16 +7,17 @@ import numpy as np
 import pickle
 import streamlit as st
 import json
-import pandas as pd
+
+import functions as f
 
 
-# Function to load the recommender model
+# Load the recommender model
 def load_model():
     with open("./src/recommender/model.pkl", "rb") as file:
         return pickle.load(file)
 
 
-# Function to load the breed code to name mapping
+# Load the breed code to name mapping
 def load_code_to_breed():
     with open("./src/recommender/code_to_breed.json", "r") as file:
         return json.load(file)
@@ -42,9 +41,7 @@ def recommend():
     breed = code_to_breed.get(str(prediction), "Unknown")
 
     if breed != "Unknown":
-        breeds_df = pd.read_csv("./data/breed_rank.csv")
-        breed_row = breeds_df[breeds_df["Breed"] == breed]
-        st.session_state.breed_image_url = breed_row.iloc[0]["Image"]
+        st.session_state.breed_image_url = f.get_breed_image_url(breed)
 
         breed = breed[:-1]  # convert to singular form (remove "s" at the end)
         st.session_state.recommendation = f"Recommended breed is: \"{breed}\""
@@ -55,12 +52,12 @@ def recommend():
         st.session_state.error_message = "An error occurred"
 
 
-# Main function to run the Streamlit app
 def main():
     global fields
 
     # st.set_page_config(layout="wide")
     st.set_page_config(page_title="DogMatch", page_icon="🐕")
+    # st.sidebar.header("Recommend")
 
     # Streamlit UI
     title = """
@@ -81,24 +78,7 @@ def main():
     # st.markdown(css, unsafe_allow_html=True)
 
     # Input fields
-    fields = [
-        "Affectionate With Family",
-        "Good With Young Children",
-        "Good With Other Dogs",
-        "Shedding Level",
-        "Coat Grooming Frequency",
-        "Drooling Level",
-        "Coat Type",
-        "Coat Length",
-        "Openness To Strangers",
-        "Playfulness Level",
-        "Protective Nature",  # original: Watchdog/Protective Nature
-        "Adaptability Level",
-        "Trainability Level",
-        "Energy Level",
-        "Barking Level",
-        "Mental Stimulation Needs"
-    ]
+    fields = f.get_traits()
 
     # Initialize session state for input values if not present
     if "user_input" not in st.session_state:
@@ -111,6 +91,12 @@ def main():
         st.session_state.breed_image_url = ""
 
     with st.container():
+        title = """
+        <br>
+        <h3 style="color:white;text-align:center;">Cechy psa</h3>
+        """
+        st.markdown(title, unsafe_allow_html=True)
+
         # Input collection with sliders arranged in columns
         col_1, col_2, col_3, col_4 = st.columns(4)
         for i, field in enumerate(fields):
@@ -122,8 +108,8 @@ def main():
 
         # Buttons with callbacks
         st.button("Reset", on_click=reset_inputs)
-        st.button("Randomize", on_click=randomize_inputs)
-        st.button("Recommend", on_click=recommend)
+        st.button("Losowo (DEV)", on_click=randomize_inputs)
+        st.button("Rekomenduj", on_click=recommend)
 
         # Placeholders
         recommendation_placeholder = st.empty()
