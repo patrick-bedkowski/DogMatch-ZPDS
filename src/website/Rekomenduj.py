@@ -38,11 +38,11 @@ def recommend():
     recommender = load_model()
     code_to_breed = load_code_to_breed()
     prediction = recommender.predict([st.session_state.user_input])[0]
-    breed = code_to_breed.get(str(prediction), "Unknown")
+    breed = code_to_breed.get(str(prediction), "")
 
-    if breed != "Unknown":
+    if breed:
         st.session_state.breed_image_url = f.get_breed_image_url(breed)
-
+        print(breed)
         breed = breed[:-1]  # convert to singular form (remove "s" at the end)
         st.session_state.recommendation = f"Recommended breed is: \"{breed}\""
         st.session_state.error_message = ""
@@ -78,7 +78,7 @@ def main():
     # st.markdown(css, unsafe_allow_html=True)
 
     # Input fields
-    fields = f.get_traits()
+    fields = f.get_traits_PL()
 
     # Initialize session state for input values if not present
     if "user_input" not in st.session_state:

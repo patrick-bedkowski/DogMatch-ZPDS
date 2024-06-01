@@ -3,7 +3,6 @@
 @author: dogmatch.team.co
 """
 
-import streamlit as st
 import pandas as pd
 
 
@@ -24,7 +23,7 @@ def get_traits() -> list:
         "Coat Length",
         "Openness To Strangers",
         "Playfulness Level",
-        "Protective Nature",  # original: Watchdog/Protective Nature
+        "Watchdog/Protective Nature",
         "Adaptability Level",
         "Trainability Level",
         "Energy Level",
@@ -33,7 +32,28 @@ def get_traits() -> list:
     ]
 
 
+def get_traits_PL() -> list:
+    return [
+        "Czułość w kontaktach z rodziną",
+        "Przyjazność w kontaktach z małymi dziećmi",
+        "Przyjazność w kontaktach z innymi Psami",
+        "Poziom linienia",
+        "Częstotliwość pielęgnacji sierści",
+        "Poziom ślinienia",
+        "Rodzaj sierści",
+        "Długość sierści",
+        "Otwartość na obcych",
+        "Poziom zabawowości",
+        "Charakter stróżujący/opiekuńczy",
+        "Zdolności adpatacyjne",
+        "Podatność na szkolenie",
+        "Energiczność",
+        "Szczekanie",
+        "Potrzeba stymulacji psychicznej"
+    ]
+
+
 def get_breed_image_url(breed: str) -> str:
     df = pd.read_csv("./data/breed_rank.csv")
     breed_row = df[df["Breed"] == breed]
-    st.session_state.breed_image_url = breed_row.iloc[0]["Image"]
+    return breed_row.iloc[0]["Image"]
