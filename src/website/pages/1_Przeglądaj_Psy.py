@@ -20,6 +20,7 @@ def main():
     <div style="background-color:tomato;">
     <h2 style="color:white;text-align:center;">DogMatch</h2>
     </div>
+    <br>
     """
     st.markdown(title, unsafe_allow_html=True)
 

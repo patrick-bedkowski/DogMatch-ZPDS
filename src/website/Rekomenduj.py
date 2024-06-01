@@ -94,6 +94,7 @@ def main():
         title = """
         <br>
         <h3 style="color:white;text-align:center;">Cechy psa</h3>
+        <br>
         """
         st.markdown(title, unsafe_allow_html=True)
 
