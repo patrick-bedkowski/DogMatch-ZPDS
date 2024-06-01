@@ -3,7 +3,13 @@ import pandas as pd
 import sys
 sys.path.append('../DogMatch')
 from BE.database import get_foreign_key_id, row_exists
-from BE.animal import Animal, DictCoatLength, DictCoatType, DictDogBreed, DogBreed
+from BE.animal import (
+    Animal, DictCoatLength, DictCoatType, DictDogBreed, DogBreed,
+    Trait
+)
+from BE.configuration import (
+    BREED_TRAITS_PATH, TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
+)
 
 
 def seedDataDictBreeds(session, data_path) -> None:
@@ -59,6 +65,7 @@ def seedDataDogBreed(session, data_path) -> None:
 
         dog_breed = DogBreed(
             dict_breed_id=dict_breed_id,
+            photo_url="TODO",
             affectionate_with_family=row["Affectionate With Family"],
             good_with_young_children=row["Good With Young Children"],
             good_with_other_dogs=row["Good With Other Dogs"],
@@ -82,8 +89,26 @@ def seedDataDogBreed(session, data_path) -> None:
     session.commit()
 
 
+def seedDataTrait(session, data_path) -> None:
+    df = pd.read_csv(data_path)
+    names_en = df["en"].values.tolist()
+    names_pl = df["pl"].values.tolist()
+
+    traits = [
+        Trait(name_en, name_pl)
+        for name_en, name_pl
+        in zip(names_en, names_pl)
+    ]
+
+    for trait in traits:
+        if not row_exists(session, "name_en", trait.name_en, Trait):
+            session.add(trait)
+    session.commit()
+
+
 def seedData(session, data_path) -> None:
     seedDataDictCoatType(session, data_path)
     seedDataDictCoatLength(session, data_path)
     seedDataDictBreeds(session, data_path)
     seedDataDogBreed(session, data_path)
+    seedDataTrait(session, TRAITS_TRANSLATION_PATH)

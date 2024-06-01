@@ -65,7 +65,7 @@ def main():
     f.adjust_primary_buttons_colors()
 
     # Input fields
-    fields = f.get_traits_PL()
+    fields = f.get_traits_pl_db()
 
     # Initialize session state for input values if not present
     if "user_input" not in st.session_state:

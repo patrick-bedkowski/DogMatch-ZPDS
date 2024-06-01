@@ -9,11 +9,15 @@ session = sessionmaker()
 
 seed_data.seedData(session, configuration.BREED_TRAITS_PATH)
 
-# print(database.get_table(session, seed_data.DictCoatType))
-breeds = database.get_table(session, seed_data.DictDogBreed)
+# print(database.get_table(session, seed_data.DogBreed))
 
-for breed in breeds:
-    print(breed.token)
+# for x in database.get_table(session, seed_data.Trait):
+#     print(x.name_en)
+
+# breeds = database.get_table(session, seed_data.DictDogBreed)
+
+# for breed in breeds:
+#     print(breed.token)
 
 # database.get_table("animals")
 # engine = db.create_engine("sqlite:///test_database.sqlite")

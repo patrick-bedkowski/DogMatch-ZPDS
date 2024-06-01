@@ -18,7 +18,7 @@ def add_dog_to_db():
 
 
 def add_dog():
-    if st.session_state.name and st.session_state.breed in f.get_breeds():
+    if st.session_state.name and st.session_state.breed in f.get_breeds_db():
         result = add_dog_to_db()
         if result:
             st.session_state.success_message = "Dodano psa"
@@ -44,7 +44,7 @@ def main():
     if "error_message" not in st.session_state:
         st.session_state.error_message = ""
 
-    breeds = f.get_breeds()
+    breeds = f.get_breeds_db()
     breeds.insert(0, "")
     st.session_state.breed = st.selectbox(
         'Rasa',

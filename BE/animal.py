@@ -148,6 +148,8 @@ class DogBreed(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     dict_breed_id = Column(Integer, ForeignKey("dict_dog_breed.id"), nullable=False)
+    photo_url = Column(String, nullable=True)
+
     affectionate_with_family = Column(Integer, nullable=False)
     good_with_young_children = Column(Integer, nullable=False)
     good_with_other_dogs = Column(Integer, nullable=False)
@@ -185,6 +187,7 @@ class DogBreed(Base):
     def __init__(
         self,
         dict_breed_id: int,
+        photo_url: str,
         affectionate_with_family: int,
         good_with_young_children: int,
         good_with_other_dogs: int,
@@ -203,6 +206,7 @@ class DogBreed(Base):
         mental_stimulation_needs: int,
     ):
         self.dict_breed_id = dict_breed_id
+        self.photo_url = photo_url
         self.affectionate_with_family = affectionate_with_family
         self.good_with_young_children = good_with_young_children
         self.good_with_other_dogs = good_with_other_dogs
@@ -222,7 +226,7 @@ class DogBreed(Base):
 
     def __repr__(self):
         return (
-            f"<Animal(dict_breed_id={self.dict_breed_id}, affectionate_with_family={self.affectionate_with_family}, "
+            f"<Animal(dict_breed_id={self.dict_breed_id}, photo_url={self.photo_url}, affectionate_with_family={self.affectionate_with_family}, "
             f"good_with_young_children={self.good_with_young_children}, good_with_other_dogs={self.good_with_other_dogs}, "
             f"shedding_level={self.shedding_level}, coat_grooming_frequency={self.coat_grooming_frequency}, "
             f"drooling_level={self.drooling_level}, coat_type='{self.coat_type}', coat_length='{self.coat_length}', "
@@ -232,3 +236,19 @@ class DogBreed(Base):
             f"energy_level={self.energy_level}, barking_level={self.barking_level}, "
             f"mental_stimulation_needs={self.mental_stimulation_needs})>"
         )
+
+
+class Trait(Base):
+    __tablename__ = "traits"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name_en = Column(String, nullable=False)
+    name_pl = Column(String, nullable=False)
+
+    def __init__(
+        self,
+        name_en: str,
+        name_pl: str,
+    ):
+        self.name_en = name_en
+        self.name_pl = name_pl
