@@ -53,6 +53,10 @@ def main():
         label="Imię"
     )
 
+    st.session_state.description = st.text_area(
+        label="Opis"
+    )
+
     st.session_state.photo = st.file_uploader(
         label="Zdjęcie", type=["png", "jpg", "bmp", "tiff"]
     )
