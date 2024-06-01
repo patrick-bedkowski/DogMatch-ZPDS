@@ -5,3 +5,4 @@ tf-slim==1.1.0
 SQLAlchemy==2.0.30
 streamlit==1.23.1
 numpy==1.23.5
+deprecated==1.2.14

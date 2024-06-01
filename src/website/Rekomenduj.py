@@ -35,15 +35,15 @@ def reset_inputs():
 
 # Recommend the breed based on user input
 def recommend():
+    # TODO: convert to use DB
     recommender = load_model()
     code_to_breed = load_code_to_breed()
     prediction = recommender.predict([st.session_state.user_input])[0]
     breed = code_to_breed.get(str(prediction), "")
 
     if breed:
-        st.session_state.breed_image_url = f.get_breed_image_url(breed)
+        st.session_state.breed_image_url = f.get_breed_image_url(breed)  # TODO: switch to get_breed_image_url_db
         print(breed)
-        breed = breed[:-1]  # convert to singular form (remove "s" at the end)
         st.session_state.recommendation = (
             f"Rekomendowana rasa to: \"{breed}\""
             # "[Przeglądaj dostępne psy](Przeglądaj_Psy)"

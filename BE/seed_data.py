@@ -4,11 +4,10 @@ import sys
 sys.path.append('../DogMatch')
 from BE.database import get_foreign_key_id, row_exists
 from BE.animal import (
-    Animal, DictCoatLength, DictCoatType, DictDogBreed, DogBreed,
-    Trait
+    DictCoatLength, DictCoatType, DictDogBreed, DogBreed, Trait
 )
 from BE.configuration import (
-    BREED_TRAITS_PATH, TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
+    TRAITS_TRANSLATION_PATH
 )
 
 

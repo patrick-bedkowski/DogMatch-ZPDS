@@ -9,13 +9,15 @@ import streamlit as st
 import sys
 sys.path.append('../DogMatch')
 from BE import database
-from BE import configuration
-from BE import seed_data
+# from BE import configuration
+from BE import seed_data, animal
+from deprecated import deprecated  # type: ignore
 
 
-# def get_breeds() -> list:
-#     df = pd.read_csv("./data/breed_rank.csv")
-#     return df['Breed'].unique().tolist()
+@deprecated
+def get_breeds() -> list:
+    df = pd.read_csv("./data/breed_rank.csv")
+    return df['Breed'].unique().tolist()
 
 
 def get_breeds_db() -> list:
@@ -47,6 +49,7 @@ def get_traits_pl_db() -> list:
     ]
 
 
+@deprecated
 def get_breed_image_url(breed: str) -> str:
     df = pd.read_csv("./data/breed_rank.csv")
     breed_row = df[df["Breed"] == breed]
@@ -56,6 +59,16 @@ def get_breed_image_url(breed: str) -> str:
 def get_breed_image_url_db(breed: str) -> str:
     # TODO
     return "TODO"
+
+
+def add_dog_to_db(name, breed, description, photo, owner_id):
+    # TODO: finish
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    dog = animal.Animal(name, breed, description, photo, owner_id)
+    session.add(dog)
+    session.commit()
+    return True
 
 
 def add_page_header():

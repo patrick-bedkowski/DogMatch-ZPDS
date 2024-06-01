@@ -8,18 +8,16 @@ import streamlit as st
 import functions as f
 
 
-def add_dog_to_db():
-    # TODO: finish
-    breed = st.session_state.breed
-    name = st.session_state.name
-    description = st.session_state.description
-    photo = st.session_state.photo
-    return False
-
-
 def add_dog():
     if st.session_state.name and st.session_state.breed in f.get_breeds_db():
-        result = add_dog_to_db()
+        result = f.add_dog_to_db(
+            st.session_state.name,
+            st.session_state.breed,
+            st.session_state.description,
+            st.session_state.photo,
+            0
+        )
+
         if result:
             st.session_state.success_message = "Dodano psa"
             st.session_state.error_message = ""
