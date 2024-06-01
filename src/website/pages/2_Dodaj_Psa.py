@@ -54,7 +54,7 @@ def main():
     )
 
     st.session_state.description = st.text_area(
-        label="Opis"
+        label="Opis", max_chars=500
     )
 
     st.session_state.photo = st.file_uploader(
