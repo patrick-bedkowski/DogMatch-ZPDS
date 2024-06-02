@@ -57,7 +57,8 @@ def get_breed_id_db(breed_name: str) -> int:
     breeds = database.get_table(session, seed_data.DictDogBreed)
     session.close()
     for breed in breeds:
-        if breed.token == breed_name:
+        # added the "split()" becasue it seems that the spaces are somehow different in DB
+        if breed.token.split() == breed_name.split():
             return breed.id
     return None
 
@@ -70,6 +71,7 @@ def get_breed_image_url_db(breed_name: str) -> str:
     session.close()
     for breed in breeds:
         if breed.dict_breed_id == breed_id:
+            print(breed.photo_url)
             return breed.photo_url
     return None
 

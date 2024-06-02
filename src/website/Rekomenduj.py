@@ -43,7 +43,7 @@ def recommend():
 
     if breed:
         st.session_state.breed_image_url = f.get_breed_image_url_db(breed)
-        print(breed)
+        print(f"Recommended breed: {breed}")
         st.session_state.recommendation = (
             f"Rekomendowana rasa to: \"{breed}\""
             # "[Przeglądaj dostępne psy](Przeglądaj_Psy)"
