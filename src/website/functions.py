@@ -24,6 +24,7 @@ def get_breeds_db() -> list:
     sessionmaker = database.createConnection()
     session = sessionmaker()
     breeds = database.get_table(session, seed_data.DictDogBreed)
+    session.close()
     return [breed.token for breed in breeds]
 
 
@@ -36,6 +37,7 @@ def get_traits_pl_db() -> list:
     sessionmaker = database.createConnection()
     session = sessionmaker()
     traits = database.get_table(session, seed_data.Trait)
+    session.close()
     return [
         trait.name_pl
         for trait in traits
@@ -53,6 +55,7 @@ def get_breed_id_db(breed_name: str) -> int:
     sessionmaker = database.createConnection()
     session = sessionmaker()
     breeds = database.get_table(session, seed_data.DictDogBreed)
+    session.close()
     for breed in breeds:
         if breed.token == breed_name:
             return breed.id
@@ -64,6 +67,7 @@ def get_breed_image_url_db(breed_name: str) -> str:
     session = sessionmaker()
     breed_id = get_breed_id_db(breed_name)
     breeds = database.get_table(session, seed_data.DogBreed)
+    session.close()
     for breed in breeds:
         if breed.dict_breed_id == breed_id:
             return breed.photo_url
@@ -77,6 +81,7 @@ def add_dog_to_db(name, breed, description, photo, owner_id):
     dog = animal.Animal(name, breed, description, photo, owner_id)
     session.add(dog)
     session.commit()
+    session.close()
     return True
 
 
