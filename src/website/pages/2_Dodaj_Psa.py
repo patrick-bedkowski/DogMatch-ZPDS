@@ -14,8 +14,8 @@ def add_dog():
             st.session_state.name,
             st.session_state.breed,
             st.session_state.description,
-            st.session_state.photo,
-            0
+            st.session_state.photo.read(),
+            0  # TODO
         )
 
         if result:

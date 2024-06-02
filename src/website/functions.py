@@ -77,7 +77,6 @@ def get_breed_image_url_db(breed_name: str) -> str:
 
 
 def add_dog_to_db(name, breed, description, photo, owner_id):
-    # TODO: finish
     sessionmaker = database.createConnection()
     session = sessionmaker()
     dog = animal.Animal(name, breed, description, photo, owner_id)
