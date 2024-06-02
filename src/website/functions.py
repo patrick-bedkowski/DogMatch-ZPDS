@@ -28,9 +28,16 @@ def get_breeds_db() -> list:
     return [breed.token for breed in breeds]
 
 
-def get_dogs_of_breed_db() -> list:
-    # TODO
-    return None
+def get_dogs_of_breed_db(breed_name: str) -> list:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    all_dogs = database.get_table(session, animal.Animal)
+    session.close()
+    dogs_of_breed = [
+        dog for dog in all_dogs
+        if dog.breed.split() == breed_name.split()
+    ]
+    return dogs_of_breed
 
 
 def get_traits_pl_db() -> list:

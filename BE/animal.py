@@ -134,19 +134,22 @@ class Animal(Base):
         # self.barking_level = barking_level
         # self.mental_stimulation_needs = mental_stimulation_needs
 
-    # def __repr__(self):
-    #     return (
-    #         f"<Animal(name='{self.name}', breed='{self.breed}', owner_id={self.owner_id}, "
-    #         f"affectionate_with_family={self.affectionate_with_family}, "
-    #         f"good_with_young_children={self.good_with_young_children}, good_with_other_dogs={self.good_with_other_dogs}, "
-    #         f"shedding_level={self.shedding_level}, coat_grooming_frequency={self.coat_grooming_frequency}, "
-    #         f"drooling_level={self.drooling_level}, coat_type='{self.coat_type}', coat_length='{self.coat_length}', "
-    #         f"openness_to_strangers={self.openness_to_strangers}, "
-    #         f"playfulness_level={self.playfulness_level}, watchdog_protective_nature={self.watchdog_protective_nature}, "
-    #         f"adaptability_level={self.adaptability_level}, trainability_level={self.trainability_level}, "
-    #         f"energy_level={self.energy_level}, barking_level={self.barking_level}, "
-    #         f"mental_stimulation_needs={self.mental_stimulation_needs})>"
-    #     )
+    def __repr__(self):
+        return (
+            f"<Animal(name='{self.name}', breed='{self.breed}', owner_id={self.owner_id})>"
+        )
+        # return (
+        #     f"<Animal(name='{self.name}', breed='{self.breed}', owner_id={self.owner_id}, "
+        #     f"affectionate_with_family={self.affectionate_with_family}, "
+        #     f"good_with_young_children={self.good_with_young_children}, good_with_other_dogs={self.good_with_other_dogs}, "
+        #     f"shedding_level={self.shedding_level}, coat_grooming_frequency={self.coat_grooming_frequency}, "
+        #     f"drooling_level={self.drooling_level}, coat_type='{self.coat_type}', coat_length='{self.coat_length}', "
+        #     f"openness_to_strangers={self.openness_to_strangers}, "
+        #     f"playfulness_level={self.playfulness_level}, watchdog_protective_nature={self.watchdog_protective_nature}, "
+        #     f"adaptability_level={self.adaptability_level}, trainability_level={self.trainability_level}, "
+        #     f"energy_level={self.energy_level}, barking_level={self.barking_level}, "
+        #     f"mental_stimulation_needs={self.mental_stimulation_needs})>"
+        # )
 
 
 class DogBreed(Base):
