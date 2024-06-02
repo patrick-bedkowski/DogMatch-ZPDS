@@ -83,7 +83,7 @@ def seedDataDogBreed(session, data_path) -> None:
             mental_stimulation_needs=row["Mental Stimulation Needs"],
         )
 
-        if session.query(DogBreed).first() is None:
+        if not row_exists(session, "dict_breed_id", dog_breed.dict_breed_id, DogBreed):
             session.add(dog_breed)
     session.commit()
 
