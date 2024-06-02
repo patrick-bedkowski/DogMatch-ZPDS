@@ -7,7 +7,7 @@ from BE.animal import (
     DictCoatLength, DictCoatType, DictDogBreed, DogBreed, Trait
 )
 from BE.configuration import (
-    TRAITS_TRANSLATION_PATH
+    TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
 )
 
 
@@ -54,17 +54,18 @@ def seedDataDictCoatType(session, data_path) -> None:
     session.commit()
 
 
-def seedDataDogBreed(session, data_path) -> None:
+def seedDataDogBreed(session, data_path, data_path_2) -> None:
     data = pd.read_csv(data_path)
+    data_2 = pd.read_csv(data_path_2)
 
-    for _, row in data.iterrows():
+    for i, row in data.iterrows():
         dict_breed_id = get_foreign_key_id(session, DictDogBreed, row["Breed"])
         coat_type_id = get_foreign_key_id(session, DictCoatType, row["Coat Type"])
         coat_length_id = get_foreign_key_id(session, DictCoatLength, row["Coat Length"])
 
         dog_breed = DogBreed(
             dict_breed_id=dict_breed_id,
-            photo_url="TODO",
+            photo_url=data_2.iloc[i]["Image"],
             affectionate_with_family=row["Affectionate With Family"],
             good_with_young_children=row["Good With Young Children"],
             good_with_other_dogs=row["Good With Other Dogs"],
@@ -109,5 +110,5 @@ def seedData(session, data_path) -> None:
     seedDataDictCoatType(session, data_path)
     seedDataDictCoatLength(session, data_path)
     seedDataDictBreeds(session, data_path)
-    seedDataDogBreed(session, data_path)
+    seedDataDogBreed(session, data_path, BREED_RANK_PATH)
     seedDataTrait(session, TRAITS_TRANSLATION_PATH)

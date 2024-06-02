@@ -27,13 +27,6 @@ def get_breeds_db() -> list:
     return [breed.token for breed in breeds]
 
 
-# class Dog:
-#     def __init__(self, name, breed, image):
-#         self.name = name
-#         self.breed = breed
-#         self.image = image
-
-
 def get_dogs_of_breed_db() -> list:
     # TODO
     return None
@@ -56,9 +49,25 @@ def get_breed_image_url(breed: str) -> str:
     return breed_row.iloc[0]["Image"]
 
 
-def get_breed_image_url_db(breed: str) -> str:
-    # TODO
-    return "TODO"
+def get_breed_id_db(breed_name: str) -> int:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    breeds = database.get_table(session, seed_data.DictDogBreed)
+    for breed in breeds:
+        if breed.token == breed_name:
+            return breed.id
+    return None
+
+
+def get_breed_image_url_db(breed_name: str) -> str:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    breed_id = get_breed_id_db(breed_name)
+    breeds = database.get_table(session, seed_data.DogBreed)
+    for breed in breeds:
+        if breed.dict_breed_id == breed_id:
+            return breed.photo_url
+    return None
 
 
 def add_dog_to_db(name, breed, description, photo, owner_id):

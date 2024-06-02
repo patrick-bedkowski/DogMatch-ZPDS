@@ -42,7 +42,7 @@ def recommend():
     breed = code_to_breed.get(str(prediction), "")
 
     if breed:
-        st.session_state.breed_image_url = f.get_breed_image_url(breed)  # TODO: switch to get_breed_image_url_db
+        st.session_state.breed_image_url = f.get_breed_image_url_db(breed)
         print(breed)
         st.session_state.recommendation = (
             f"Rekomendowana rasa to: \"{breed}\""

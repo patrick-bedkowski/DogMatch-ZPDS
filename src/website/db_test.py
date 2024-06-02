@@ -9,6 +9,12 @@ session = sessionmaker()
 
 seed_data.seedData(session, configuration.BREED_TRAITS_PATH)
 
+# breeds = database.get_table(session, seed_data.DogBreed)
+# breeds = database.get_table(session, seed_data.DictDogBreed)
+# for breed in breeds:
+#     print(breed.id)
+# print(breeds)
+
 # print(database.get_table(session, seed_data.DogBreed))
 
 # for x in database.get_table(session, seed_data.Trait):
