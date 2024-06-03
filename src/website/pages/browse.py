@@ -4,9 +4,6 @@
 """
 
 import streamlit as st
-import pandas as pd
-import random
-from BE import animal
 
 import functions as f
 
