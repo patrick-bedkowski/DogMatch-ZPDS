@@ -92,7 +92,7 @@ def main():
     with st.container():
         st.write("na podstawie Twoich preferencji dotyczących cech psa")
 
-        f.add_header("Charakter: Cechy społeczne")
+        f.add_header("Cechy społeczne")
         with st.container():
             col_1, col_2 = st.columns(2)
             with col_1:
@@ -104,7 +104,7 @@ def main():
                 add_slider(10)
                 add_slider(14)
 
-        f.add_header("Charakter: Psychika i zabawa")
+        f.add_header("Psychika i zabawa")
         with st.container():
             col_1, col_2 = st.columns(2)
             with col_1:
