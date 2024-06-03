@@ -115,7 +115,7 @@ def main():
                 add_slider(12)
                 add_slider(11)
 
-        f.add_header("Cechy fizyczne ")
+        f.add_header("Cechy fizyczne")
         with st.container():
             col_1, col_2 = st.columns(2)
             with col_1:
