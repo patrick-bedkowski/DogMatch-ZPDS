@@ -176,3 +176,14 @@ def add_back_button(pl: bool = True):
     if pl:
         if st.button("⬅️ Powrót", use_container_width=True):
             st.switch_page("app.py")
+
+
+def add_header(text: str):
+    st.markdown(
+        f"""
+        <br>
+        <h3 style="color:white;text-align:center;">{text}</h3>
+        <br>
+        """,
+        unsafe_allow_html=True
+    )
