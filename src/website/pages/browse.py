@@ -37,6 +37,8 @@ def main():
     f.setup_page()
     f.add_back_button()
 
+    st.header("Przeglądanie psów")
+
     breeds = f.get_breeds_db()
     breeds.insert(0, "")
     st.selectbox(

@@ -93,12 +93,13 @@ def add_dog_to_db(name, breed, description, photo, owner_id):
     return True
 
 
-def add_page_header():
+def add_app_header():
     st.markdown(
         """
         <div style="background-color:orange;">
-        <h2 style="color:black;text-align:center;">DogMatch</h2>
+        <h2 style="color:black;text-align:center;">🐶DogMatch</h2>
         </div>
+        <br>
         """,
         unsafe_allow_html=True
     )
@@ -123,8 +124,8 @@ def adjust_buttons():
         <style>
         button {
             height: auto;
-            padding-top: 10px !important;
-            padding-bottom: 10px !important;
+            padding-top: 15px !important;
+            padding-bottom: 15px !important;
         }
         </style>
         """,
@@ -146,13 +147,27 @@ def disable_sidebar():
     )
 
 
+def adjust_padding():
+    # remember to also set "initial_sidebar_state="collapsed"" in st.set_page_config()
+    st.markdown(
+        """
+        <style>
+        [data-testid="stAppViewBlockContainer"] {
+            padding-top: 0%;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def setup_page():
     # st.set_page_config(layout="wide")
     st.set_page_config(page_title="DogMatch", page_icon="🐶", initial_sidebar_state="collapsed")
-    add_page_header()
     adjust_primary_buttons_text_color()
     disable_sidebar()
     adjust_buttons()
+    adjust_padding()
 
 
 def add_back_button(pl: bool = True):

@@ -59,6 +59,8 @@ def main():
     f.setup_page()
     f.add_back_button()
 
+    st.header("Rekomendowanie rasy")
+
     col_1, col_2 = st.columns(2)
 
     # Input fields
@@ -94,9 +96,9 @@ def main():
             st.session_state.user_input[i] = user_input
 
         # Buttons with callbacks
-        st.button("Domyślne", on_click=reset_inputs)
-        st.button("Losowe (DEV)", on_click=randomize_inputs)
-        st.button("Rekomenduj", on_click=recommend, type="primary")
+        st.button("Domyślne", on_click=reset_inputs, use_container_width=True)
+        st.button("Losowe (DEV)", on_click=randomize_inputs, use_container_width=True)
+        st.button("Rekomenduj", on_click=recommend, type="primary", use_container_width=True)
 
         # Placeholders
         recommendation_placeholder = st.empty()

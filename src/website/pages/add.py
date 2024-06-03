@@ -33,6 +33,8 @@ def main():
     f.setup_page()
     f.add_back_button()
 
+    st.header("Dodawanie psa")
+
     if "name" not in st.session_state:
         st.session_state.name = ""
     if "success_message" not in st.session_state:
@@ -59,7 +61,7 @@ def main():
         label="Zdjęcie", type=["png", "jpg", "bmp", "tiff"]
     )
 
-    st.button("Dodaj", on_click=add_dog, type="primary")
+    st.button("Dodaj", on_click=add_dog, type="primary", use_container_width=True)
 
     success_placeholder = st.empty()
     error_placeholder = st.empty()
