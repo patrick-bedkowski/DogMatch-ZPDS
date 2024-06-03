@@ -26,6 +26,14 @@ def delete_row(session, variable_name, variable, row_class):
     session.commit()
 
 
+def clear_table(session, table_class):
+    """
+    Deletes all rows from the given table.
+    """
+    session.query(table_class).delete()
+    session.commit()
+
+
 def get_table(session, table_class):
     """
     Returns all rows from the given table.

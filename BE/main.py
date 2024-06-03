@@ -3,8 +3,9 @@ from sklearn.preprocessing import LabelEncoder
 
 import sys
 sys.path.append('../DogMatch')
+from BE.animal import Animal
 from BE.seed_data import seedData
-from BE.database import createConnection
+from BE.database import clear_table, createConnection
 from BE.configuration import BREED_TRAITS_PATH, MODEL_PATH
 from BE.ask_model import predict, prepare_model
 
@@ -39,6 +40,8 @@ def main():
     prediction = predict(model, row)
 
     print(prediction)
+
+    clear_table(session, Animal)
 
     session.close()
 
