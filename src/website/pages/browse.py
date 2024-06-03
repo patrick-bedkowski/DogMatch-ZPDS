@@ -51,8 +51,8 @@ def main():
     row_5 = st.columns(2)
 
     st.session_state.dogs_list = []
-    for col in row_1 + row_2 + row_3 + row_4 + row_5:
-        container = col.container(height=250)
+    for i, col in enumerate(row_1 + row_2 + row_3 + row_4 + row_5):
+        container = col.container(height=250, border=False)
         st.session_state.dogs_list.append(container)
 
 
