@@ -14,6 +14,7 @@ def main():
     # f.add_app_header()
     f.add_back_button()
 
+    st.header("O aplikacji")
     st.write("TODO")  # TODO: provide information about the app
 
 
