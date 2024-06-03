@@ -34,10 +34,8 @@ def update_dogs_list():
 
 
 def main():
-    st.set_page_config(page_title="DogMatch", page_icon="🐶")
-
-    f.add_page_header()
-    f.adjust_primary_buttons_colors()
+    f.setup_page()
+    f.add_back_button()
 
     breeds = f.get_breeds_db()
     breeds.insert(0, "")

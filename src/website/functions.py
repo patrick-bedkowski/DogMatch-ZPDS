@@ -104,7 +104,7 @@ def add_page_header():
     )
 
 
-def adjust_primary_buttons_colors():
+def adjust_primary_buttons_text_color():
     st.markdown(
         """
         <style>
@@ -115,3 +115,47 @@ def adjust_primary_buttons_colors():
         """,
         unsafe_allow_html=True
     )
+
+
+def adjust_buttons():
+    st.markdown(
+        """
+        <style>
+        button {
+            height: auto;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def disable_sidebar():
+    # remember to also set "initial_sidebar_state="collapsed"" in st.set_page_config()
+    st.markdown(
+        """
+        <style>
+        [data-testid="collapsedControl"] {
+            display: none
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def setup_page():
+    # st.set_page_config(layout="wide")
+    st.set_page_config(page_title="DogMatch", page_icon="🐶", initial_sidebar_state="collapsed")
+    add_page_header()
+    adjust_primary_buttons_text_color()
+    disable_sidebar()
+    adjust_buttons()
+
+
+def add_back_button(pl: bool = True):
+    if pl:
+        if st.button("⬅️ Powrót", use_container_width=True):
+            st.switch_page("app.py")

@@ -25,12 +25,12 @@ def load_code_to_breed():
 
 def randomize_inputs():
     st.session_state.user_input = np.random.randint(
-        1, 6, size=len(fields)
+        1, 6, size=len(st.session_state.fields)
     ).tolist()
 
 
 def reset_inputs():
-    st.session_state.user_input = [3] * len(fields)
+    st.session_state.user_input = [3] * len(st.session_state.fields)
 
 
 # Recommend the breed based on user input
@@ -56,20 +56,17 @@ def recommend():
 
 
 def main():
-    global fields
+    f.setup_page()
+    f.add_back_button()
 
-    # st.set_page_config(layout="wide")
-    st.set_page_config(page_title="DogMatch", page_icon="🐶")
-
-    f.add_page_header()
-    f.adjust_primary_buttons_colors()
+    col_1, col_2 = st.columns(2)
 
     # Input fields
-    fields = f.get_traits_pl_db()
+    st.session_state.fields = f.get_traits_pl_db()
 
     # Initialize session state for input values if not present
     if "user_input" not in st.session_state:
-        st.session_state.user_input = [3] * len(fields)
+        st.session_state.user_input = [3] * len(st.session_state.fields)
     if "recommendation" not in st.session_state:
         st.session_state.recommendation = ""
     if "error_message" not in st.session_state:
@@ -81,7 +78,7 @@ def main():
         st.markdown(
             """
             <br>
-            <h3 style="color:white;text-align:center;">Cechy psa</h3>
+            <h3 style="color:white;text-align:center;">Preferowane cechy psa</h3>
             <br>
             """,
             unsafe_allow_html=True
@@ -89,7 +86,7 @@ def main():
 
         # Input collection with sliders arranged in columns
         col_1, col_2, col_3, col_4 = st.columns(4)
-        for i, field in enumerate(fields):
+        for i, field in enumerate(st.session_state.fields):
             col_index = i // 4
             user_input = [col_1, col_2, col_3, col_4][col_index].slider(
                 field, 1, 5, st.session_state.user_input[i]
