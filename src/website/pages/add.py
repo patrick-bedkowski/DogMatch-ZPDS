@@ -9,21 +9,31 @@ import functions as f
 
 
 def add_dog():
-    if st.session_state.name and st.session_state.breed in f.get_breeds():
-        st.session_state.success_message = "Dodano psa"
-        st.session_state.error_message = ""
+    if st.session_state.name and st.session_state.breed in f.get_breeds_db():
+        result = f.add_dog_to_db(
+            st.session_state.name,
+            st.session_state.breed,
+            st.session_state.description,
+            st.session_state.photo.read(),
+            0  # TODO
+        )
 
-        # TODO: actual adding to DB
+        if result:
+            st.session_state.success_message = "Dodano psa"
+            st.session_state.error_message = ""
+        else:
+            st.session_state.success_message = ""
+            st.session_state.error_message = "Wystąpił błąd"
     else:
         st.session_state.success_message = ""
         st.session_state.error_message = "Wprowadź rasę oraz imię"
 
 
 def main():
-    st.set_page_config(page_title="DogMatch", page_icon="🐶")
+    f.setup_page()
+    f.add_back_button()
 
-    f.add_page_header()
-    f.adjust_primary_buttons_colors()
+    st.header("Dodawanie psa")
 
     if "name" not in st.session_state:
         st.session_state.name = ""
@@ -32,7 +42,7 @@ def main():
     if "error_message" not in st.session_state:
         st.session_state.error_message = ""
 
-    breeds = f.get_breeds()
+    breeds = f.get_breeds_db()
     breeds.insert(0, "")
     st.session_state.breed = st.selectbox(
         'Rasa',
@@ -51,7 +61,7 @@ def main():
         label="Zdjęcie", type=["png", "jpg", "bmp", "tiff"]
     )
 
-    st.button("Dodaj", on_click=add_dog, type="primary")
+    st.button("Dodaj", on_click=add_dog, type="primary", use_container_width=True)
 
     success_placeholder = st.empty()
     error_placeholder = st.empty()

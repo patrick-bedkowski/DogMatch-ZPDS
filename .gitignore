@@ -1,3 +1,5 @@
+BE/__pycache__
+*.db
 .vscode
 
 # Byte-compiled / optimized / DLL files
