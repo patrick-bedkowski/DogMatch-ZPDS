@@ -25,12 +25,18 @@ def load_code_to_breed():
 
 def randomize_inputs():
     st.session_state.user_input = np.random.randint(
-        1, 6, size=len(st.session_state.fields)
+        1, 3, size=len(st.session_state.traits)
     ).tolist()
 
 
 def reset_inputs():
-    st.session_state.user_input = [3] * len(st.session_state.fields)
+    st.session_state.user_input = [2] * len(st.session_state.traits)
+
+
+def add_slider(trait_id: int):
+    st.session_state.user_input[trait_id] = st.slider(
+        st.session_state.traits[trait_id], 1, 3, st.session_state.user_input[trait_id]
+    )
 
 
 # Recommend the breed based on user input
@@ -38,7 +44,14 @@ def recommend():
     # TODO: convert to use DB
     recommender = load_model()
     code_to_breed = load_code_to_breed()
-    prediction = recommender.predict([st.session_state.user_input])[0]
+
+    # map from 1-3 range to 1-5 range
+    user_input_converted = [
+        (x-1) * (4/2) + 1
+        for x in st.session_state.user_input
+    ]
+
+    prediction = recommender.predict([user_input_converted])[0]
     breed = code_to_breed.get(str(prediction), "")
 
     if breed:
@@ -61,14 +74,10 @@ def main():
 
     st.header("Rekomendowanie rasy")
 
-    col_1, col_2 = st.columns(2)
+    st.session_state.traits = f.get_traits_pl_db()
 
-    # Input fields
-    st.session_state.fields = f.get_traits_pl_db()
-
-    # Initialize session state for input values if not present
     if "user_input" not in st.session_state:
-        st.session_state.user_input = [3] * len(st.session_state.fields)
+        reset_inputs()
     if "recommendation" not in st.session_state:
         st.session_state.recommendation = ""
     if "error_message" not in st.session_state:
@@ -77,24 +86,42 @@ def main():
         st.session_state.breed_image_url = ""
 
     with st.container():
-        f.add_header("Preferowane cechy psa")
+        st.write("na podstawie Twoich preferencji dotyczących cech psa")
 
-        # TODO: group into smaller categories
-        # f.add_header("Charakter")
-        # f.add_header("Psychika i zabawa")
-        # f.add_header("Ogólne Cechy fizyczne")
-        # f.add_header("Sierść")
+        f.add_header("Charakter: Cechy społeczne")
+        with st.container():
+            col_1, col_2 = st.columns(2)
+            with col_1:
+                add_slider(0)
+                add_slider(1)
+                add_slider(2)
+            with col_2:
+                add_slider(8)
+                add_slider(10)
+                add_slider(14)
 
-        # Input collection with sliders arranged in columns
-        col_1, col_2, col_3, col_4 = st.columns(4)
-        for i, field in enumerate(st.session_state.fields):
-            col_index = i // 4
-            user_input = [col_1, col_2, col_3, col_4][col_index].slider(
-                field, 1, 5, st.session_state.user_input[i]
-            )
-            st.session_state.user_input[i] = user_input
+        f.add_header("Charakter: Psychika i zabawa")
+        with st.container():
+            col_1, col_2 = st.columns(2)
+            with col_1:
+                add_slider(13)
+                add_slider(9)
+                add_slider(15)
+            with col_2:
+                add_slider(12)
+                add_slider(11)
 
-        # Buttons with callbacks
+        f.add_header("Cechy fizyczne ")
+        with st.container():
+            col_1, col_2 = st.columns(2)
+            with col_1:
+                add_slider(5)
+                add_slider(6)
+                add_slider(7)
+            with col_2:
+                add_slider(3)
+                add_slider(4)
+
         st.button("Domyślne", on_click=reset_inputs, use_container_width=True)
         st.button("Losowe (DEV)", on_click=randomize_inputs, use_container_width=True)
         st.button("Rekomenduj", on_click=recommend, type="primary", use_container_width=True)
