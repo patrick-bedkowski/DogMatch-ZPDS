@@ -44,16 +44,20 @@ def main():
     if "dogs_list" not in st.session_state:
         st.session_state.dogs_list = []
 
-    row_1 = st.columns(2)
-    row_2 = st.columns(2)
-    row_3 = st.columns(2)
-    row_4 = st.columns(2)
-    row_5 = st.columns(2)
+    rows = [
+        st.columns(2) for _ in range(10)
+    ]
 
     st.session_state.dogs_list = []
-    for i, col in enumerate(row_1 + row_2 + row_3 + row_4 + row_5):
-        container = col.container(height=250, border=False)
-        st.session_state.dogs_list.append(container)
+    for i, row in enumerate(rows):
+        for col in row:
+            dogs_number = len(f.get_dogs_of_breed_db(st.session_state.breed_selectbox))
+            if dogs_number < 1 or i >= dogs_number:
+                height = 0
+            else:
+                height = 250
+            container = col.container(height=height, border=False)
+            st.session_state.dogs_list.append(container)
 
 
 if __name__ == "__main__":
