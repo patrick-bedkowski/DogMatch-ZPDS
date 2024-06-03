@@ -25,7 +25,7 @@ def load_code_to_breed():
 
 def randomize_inputs():
     st.session_state.user_input = np.random.randint(
-        1, 3, size=len(st.session_state.traits)
+        1, 5, size=len(st.session_state.traits)
     ).tolist()
 
     # coat type
@@ -33,7 +33,7 @@ def randomize_inputs():
 
 
 def reset_inputs():
-    st.session_state.user_input = [2] * len(st.session_state.traits)
+    st.session_state.user_input = [3] * len(st.session_state.traits)
 
     # coat type
     # st.session_state.user_input[6] = None
@@ -47,7 +47,7 @@ def add_slider(trait_id: int, help_text: str = "TODO"):
     st.session_state.user_input[trait_id] = st.slider(
         label=st.session_state.traits[trait_id],
         min_value=1,
-        max_value=3,
+        max_value=5,
         value=st.session_state.user_input[trait_id],
         help=help_text
     )
@@ -77,12 +77,15 @@ def recommend():
         # get numeric value of coat type
         st.session_state.user_input[6] = f.get_coat_type_id_db(st.session_state.user_input[6])
 
-    # map from 1-3 range to 1-5 range
-    user_input_converted = [
-        (x-1) * (4/2) + 1
-        for x in st.session_state.user_input
-    ]
-    user_input_converted[7] = st.session_state.user_input[7]  # coat length should be in range 1-3
+    # # map from 1-3 range to 1-5 range
+    # user_input_converted = [
+    #     (x-1) * (4/2) + 1
+    #     for x in st.session_state.user_input
+    # ]
+    # user_input_converted[7] = st.session_state.user_input[7]  # coat length should be in range 1-3
+
+    user_input_converted = st.session_state.user_input
+    user_input_converted[7] = int((st.session_state.user_input[7] - 1) * 2/4 + 1)  # coat length should be in range 1-3
 
     print("\n===SCALED INPUT===")
     for trait, value in zip(st.session_state.traits, user_input_converted):
@@ -164,7 +167,7 @@ def main():
                 add_slider(4)
 
         st.button("Domyślne", on_click=reset_inputs, use_container_width=True)
-        st.button("Losowe (DEV)", on_click=randomize_inputs, use_container_width=True)
+        st.button("Losowe", on_click=randomize_inputs, use_container_width=True)
         st.button("Rekomenduj", on_click=recommend, type="primary", use_container_width=True)
 
         # Placeholders
