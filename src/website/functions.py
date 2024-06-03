@@ -106,6 +106,8 @@ def add_app_header():
 
 
 def adjust_primary_buttons_text_color():
+    # you can use ":color[text to be colored]" in streamlit
+    # but let's use this to change all buttons from one place
     st.markdown(
         """
         <style>
