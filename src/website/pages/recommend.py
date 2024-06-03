@@ -33,9 +33,13 @@ def reset_inputs():
     st.session_state.user_input = [2] * len(st.session_state.traits)
 
 
-def add_slider(trait_id: int):
+def add_slider(trait_id: int, help_text: str = "TODO"):
     st.session_state.user_input[trait_id] = st.slider(
-        st.session_state.traits[trait_id], 1, 3, st.session_state.user_input[trait_id]
+        label=st.session_state.traits[trait_id],
+        min_value=1,
+        max_value=3,
+        value=st.session_state.user_input[trait_id],
+        help=help_text
     )
 
 
