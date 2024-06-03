@@ -3,7 +3,7 @@ tensorflow==2.16.1
 pandas==2.2.1
 tf-slim==1.1.0
 SQLAlchemy==2.0.30
-streamlit==1.23.1
+streamlit==1.35.0
 numpy==1.23.5
 deprecated==1.2.14
 scikit-learn==1.5.0
