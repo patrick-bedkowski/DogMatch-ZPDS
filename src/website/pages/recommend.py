@@ -77,14 +77,13 @@ def main():
         st.session_state.breed_image_url = ""
 
     with st.container():
-        st.markdown(
-            """
-            <br>
-            <h3 style="color:white;text-align:center;">Preferowane cechy psa</h3>
-            <br>
-            """,
-            unsafe_allow_html=True
-        )
+        f.add_header("Preferowane cechy psa")
+
+        # TODO: group into smaller categories
+        # f.add_header("Charakter")
+        # f.add_header("Psychika i zabawa")
+        # f.add_header("Ogólne Cechy fizyczne")
+        # f.add_header("Sierść")
 
         # Input collection with sliders arranged in columns
         col_1, col_2, col_3, col_4 = st.columns(4)
