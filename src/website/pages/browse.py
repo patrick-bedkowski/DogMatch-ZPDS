@@ -13,21 +13,11 @@ def update_dogs_list():
     breed = st.session_state.breed_selectbox
     dogs_of_breed = f.get_dogs_of_breed_db(breed)
 
-    df = [
-        [dog.name, dog.description]
-        for dog in dogs_of_breed
-    ]
-
-    # dogs_of_breed = [dog.name for dog in dogs_of_breed]
-
-    # # print(data)
-    # df = pd.DataFrame(
-    #     data,
-    #     columns=["Name", "Photo", "Description"]
-    # )
-    st.session_state.dogs_list = df
-    # # for dog in dogs_of_breed:
-    #     # add_dog_to_list(dog)
+    i = 0
+    for dog in dogs_of_breed:
+        st.session_state.dogs_list[i].image(dog.photo, width=200, caption=dog.name)
+        st.session_state.dogs_list[i+1].markdown(dog.description)
+        i += 2
 
 
 def main():
@@ -45,10 +35,25 @@ def main():
         key="breed_selectbox"
     )
 
-    if "dogs_list" not in st.session_state:
-        st.session_state.dogs_list = None
+    col_1, col_2 = st.columns(2)
+    with col_1:
+        st.write("Zdjęcie i imię")
+    with col_2:
+        st.write("Opis")
 
-    st.dataframe(st.session_state.dogs_list)
+    if "dogs_list" not in st.session_state:
+        st.session_state.dogs_list = []
+
+    row_1 = st.columns(2)
+    row_2 = st.columns(2)
+    row_3 = st.columns(2)
+    row_4 = st.columns(2)
+    row_5 = st.columns(2)
+
+    st.session_state.dogs_list = []
+    for col in row_1 + row_2 + row_3 + row_4 + row_5:
+        container = col.container(height=250)
+        st.session_state.dogs_list.append(container)
 
 
 if __name__ == "__main__":
