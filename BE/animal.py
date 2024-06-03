@@ -22,13 +22,15 @@ class DictCoatType(Base):
     __tablename__ = "dict_coat_type"
     id = Column(Integer, primary_key=True)
     token = Column(String, nullable=False)
+    token_pl = Column(String, nullable=False)
 
-    def __init__(self, id: int, token: str):
+    def __init__(self, id: int, token: str, token_pl: str):
         self.id = id
         self.token = token
+        self.token_pl = token_pl
 
     def __repr__(self):
-        return f"<DictCoatType(id={self.id}, token='{self.token}')>"
+        return f"<DictCoatType(id={self.id}, token='{self.token}', token_pl='{self.token_pl}')>"
 
 
 class DictCoatLength(Base):

@@ -51,6 +51,28 @@ def get_traits_pl_db() -> list:
     ]
 
 
+def get_coat_types_pl_db() -> list:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    types = database.get_table(session, seed_data.DictCoatType)
+    session.close()
+    return [
+        type.token_pl
+        for type in types
+    ]
+
+
+def get_coat_type_id_db(coat_type: str) -> int:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    types = database.get_table(session, seed_data.DictCoatType)
+    session.close()
+    for type in types:
+        if type.token == coat_type or type.token_pl == coat_type:
+            return type.id
+    return None
+
+
 @deprecated
 def get_breed_image_url(breed: str) -> str:
     df = pd.read_csv("./data/breed_rank.csv")

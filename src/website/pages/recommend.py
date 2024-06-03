@@ -28,9 +28,19 @@ def randomize_inputs():
         1, 3, size=len(st.session_state.traits)
     ).tolist()
 
+    # coat type
+    # st.session_state.user_input[6] = np.random.choice(f.get_coat_types_pl_db())
+
 
 def reset_inputs():
     st.session_state.user_input = [2] * len(st.session_state.traits)
+
+    # coat type
+    # st.session_state.user_input[6] = None
+    # st.session_state.user_input = [
+    #     2 if i != 6 else "Test"
+    #     for i, trait in enumerate(st.session_state.traits)
+    # ]
 
 
 def add_slider(trait_id: int, help_text: str = "TODO"):
@@ -43,22 +53,43 @@ def add_slider(trait_id: int, help_text: str = "TODO"):
     )
 
 
+def add_coat_type_selectbox():
+    trait_id = 6
+    st.session_state.user_input[trait_id] = st.selectbox(
+        label=st.session_state.traits[trait_id],
+        options=f.get_coat_types_pl_db(),
+        help="TODO",
+        placeholder="Wybierz",
+        index=None
+    )
+
+
 # Recommend the breed based on user input
 def recommend():
-    # TODO: convert to use DB
-    recommender = load_model()
-    code_to_breed = load_code_to_breed()
+    # TODO: convert to fully use DB
+
+    if not st.session_state.user_input[6]:
+        st.session_state.breed_image_url = ""
+        st.session_state.recommendation = ""
+        st.session_state.error_message = "Wybierz preferowany rodzaj sierści"
+        return
+    else:
+        # get numeric value of coat type
+        st.session_state.user_input[6] = f.get_coat_type_id_db(st.session_state.user_input[6])
 
     # map from 1-3 range to 1-5 range
     user_input_converted = [
         (x-1) * (4/2) + 1
-        if i != 7 else x  # coat length should be in range 1-3
-        for i, x in enumerate(st.session_state.user_input)
+        for x in st.session_state.user_input
     ]
+    user_input_converted[7] = st.session_state.user_input[7]  # coat length should be in range 1-3
 
     print("\n===SCALED INPUT===")
     for trait, value in zip(st.session_state.traits, user_input_converted):
         print(trait, value)
+
+    recommender = load_model()
+    code_to_breed = load_code_to_breed()
 
     prediction = recommender.predict([user_input_converted])[0]
     breed = code_to_breed.get(str(prediction), "")
@@ -125,7 +156,8 @@ def main():
             col_1, col_2 = st.columns(2)
             with col_1:
                 add_slider(5)
-                add_slider(6)
+                # add_slider(6)  # this is coat type, it has to be a dropdown
+                add_coat_type_selectbox()
                 add_slider(7)
             with col_2:
                 add_slider(3)

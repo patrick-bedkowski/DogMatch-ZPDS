@@ -46,7 +46,20 @@ def seedDataDictCoatType(session, data_path) -> None:
         code: coat_type for code, coat_type in enumerate(data["Coat Type"].unique())
     }
 
-    coat_types = [DictCoatType(key, value) for key, value in code_to_coat_type.items()]
+    # TODO: improve it
+    pl_dict = {
+        "Double": "Podwójna",
+        "Smooth": "Gładka",
+        "Curly": "Kręcona",
+        "Silky": "Jedwabna",
+        "Wavy": "Falowana",
+        "Wiry": "Szorstka (Wiry)",
+        "Hairless": "Bezwłosy",
+        "Rough": "Szorstka (Rough)",
+        "Corded": "Sznurowana"
+    }
+
+    coat_types = [DictCoatType(key, value, pl_dict[value]) for key, value in code_to_coat_type.items()]
 
     for coat_type in coat_types:
         if not row_exists(session, "token", coat_type.token, DictCoatType):
