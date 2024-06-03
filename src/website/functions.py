@@ -78,7 +78,6 @@ def get_breed_image_url_db(breed_name: str) -> str:
     session.close()
     for breed in breeds:
         if breed.dict_breed_id == breed_id:
-            print(breed.photo_url)
             return breed.photo_url
     return None
 

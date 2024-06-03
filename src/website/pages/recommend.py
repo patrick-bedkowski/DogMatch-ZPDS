@@ -52,15 +52,20 @@ def recommend():
     # map from 1-3 range to 1-5 range
     user_input_converted = [
         (x-1) * (4/2) + 1
-        for x in st.session_state.user_input
+        if i != 7 else x  # coat length should be in range 1-3
+        for i, x in enumerate(st.session_state.user_input)
     ]
+
+    print("\n===SCALED INPUT===")
+    for trait, value in zip(st.session_state.traits, user_input_converted):
+        print(trait, value)
 
     prediction = recommender.predict([user_input_converted])[0]
     breed = code_to_breed.get(str(prediction), "")
 
     if breed:
         st.session_state.breed_image_url = f.get_breed_image_url_db(breed)
-        print(f"Recommended breed: {breed}")
+        print(f"\nRecommended breed: {breed}")
         st.session_state.recommendation = (
             f"Rekomendowana rasa to: \"{breed}\""
             # "[Przeglądaj dostępne psy](Przeglądaj_Psy)"
