@@ -9,6 +9,8 @@ import functions as f
 
 
 def main():
+    f.prepare_db()
+
     f.setup_page()
     f.add_app_header()
 

@@ -11,7 +11,15 @@ sys.path.append('../DogMatch')
 from BE import database
 # from BE import configuration
 from BE import seed_data, animal
+from BE.seed_data import seedData
 from deprecated import deprecated  # type: ignore
+from BE.configuration import BREED_TRAITS_PATH
+
+
+def prepare_db():
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    seedData(session, BREED_TRAITS_PATH)
 
 
 @deprecated
