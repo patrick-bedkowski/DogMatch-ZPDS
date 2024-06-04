@@ -7,4 +7,3 @@ streamlit==1.35.0
 numpy==1.23.5
 deprecated==1.2.14
 scikit-learn==1.5.0
-lightgbm
