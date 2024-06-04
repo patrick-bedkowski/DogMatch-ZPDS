@@ -20,6 +20,14 @@ def prepare_db():
     sessionmaker = database.createConnection()
     session = sessionmaker()
     seedData(session, BREED_TRAITS_PATH)
+    session.close()
+
+
+def clear_animals_table_db():
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    database.clear_table(session, animal.Animal)
+    session.close()
 
 
 @deprecated
