@@ -9,7 +9,7 @@ import functions as f
 
 
 def add_dog():
-    if st.session_state.name and st.session_state.breed in f.get_breeds_db():
+    if st.session_state.name and st.session_state.breed in f.get_breeds_db() and st.session_state.photo:
         result = f.add_dog_to_db(
             st.session_state.name,
             st.session_state.breed,
@@ -26,7 +26,7 @@ def add_dog():
             st.session_state.error_message = "Wystąpił błąd"
     else:
         st.session_state.success_message = ""
-        st.session_state.error_message = "Wprowadź rasę oraz imię"
+        st.session_state.error_message = "Wprowadź rasę, imię oraz zdjęcie"
 
 
 def main():
