@@ -7,6 +7,7 @@ import numpy as np
 import pickle
 import streamlit as st
 import json
+# import time
 
 import functions as f
 
@@ -66,8 +67,6 @@ def add_coat_type_selectbox():
 
 # Recommend the breed based on user input
 def recommend():
-    # TODO: convert to fully use DB
-
     if not st.session_state.user_input[6]:
         st.session_state.breed_image_url = ""
         st.session_state.recommendation = ""
@@ -168,7 +167,10 @@ def main():
 
         st.button("Domyślne", on_click=reset_inputs, use_container_width=True)
         st.button("Losowe", on_click=randomize_inputs, use_container_width=True)
-        st.button("Rekomenduj", on_click=recommend, type="primary", use_container_width=True)
+        if st.button("Rekomenduj", type="primary", use_container_width=True):
+            with st.spinner('Przygotowywanie rekomendacji...'):
+                # time.sleep(1)
+                recommend()
 
         # Placeholders
         recommendation_placeholder = st.empty()
