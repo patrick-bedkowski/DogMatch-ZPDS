@@ -14,6 +14,9 @@ def main():
     # f.add_app_header()
     f.add_back_button()
 
+    with st.popover(":orange[Opcje deweloperskie]"):
+        st.button(label=":red[Czyszczenie tabeli \"Animals\"]", on_click=f.clear_animals_table_db)
+
     st.header("O aplikacji")
     st.write("TODO")  # TODO: provide information about the app
 
