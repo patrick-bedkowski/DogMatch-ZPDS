@@ -12,10 +12,11 @@ from website import functions as f
 
 
 def add_dog():
-    if st.session_state.name and st.session_state.breed in f.get_breeds_db() and st.session_state.photo:
+    if st.session_state.name and st.session_state.breed in f.get_breeds_db() and st.session_state.photo and st.session_state.location:
         result = f.add_dog_to_db(
             st.session_state.name,
             st.session_state.breed,
+            st.session_state.location,
             st.session_state.description,
             st.session_state.photo.read(),
             0  # TODO
@@ -29,7 +30,7 @@ def add_dog():
             st.session_state.error_message = "Wystąpił błąd"
     else:
         st.session_state.success_message = ""
-        st.session_state.error_message = "Wprowadź rasę, imię oraz zdjęcie"
+        st.session_state.error_message = "Wprowadź wszystkie dane"
 
 
 def main():
@@ -40,6 +41,10 @@ def main():
 
     if "name" not in st.session_state:
         st.session_state.name = ""
+    if "location" not in st.session_state:
+        st.session_state.location = ""
+    if "description" not in st.session_state:
+        st.session_state.description = ""
     if "success_message" not in st.session_state:
         st.session_state.success_message = ""
     if "error_message" not in st.session_state:
@@ -54,6 +59,10 @@ def main():
 
     st.session_state.name = st.text_input(
         label="Imię"
+    )
+
+    st.session_state.location = st.text_input(
+        label="Miejsce"
     )
 
     st.session_state.description = st.text_area(

@@ -122,10 +122,10 @@ def get_breed_image_url_db(breed_name: str) -> str:
     return None
 
 
-def add_dog_to_db(name, breed, description, photo, owner_id):
+def add_dog_to_db(name, breed, location, description, photo, owner_id):
     sessionmaker = database.createConnection()
     session = sessionmaker()
-    dog = animal.Animal(name, breed, description, photo, owner_id)
+    dog = animal.Animal(name, breed, location, description, photo, owner_id)
     session.add(dog)
     session.commit()
     session.close()

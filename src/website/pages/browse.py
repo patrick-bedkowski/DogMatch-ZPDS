@@ -20,6 +20,8 @@ def update_dogs_list():
     for dog in dogs_of_breed:
         st.session_state.dogs_list[i].image(dog.photo, width=200, caption=dog.name)
         st.session_state.dogs_list[i+1].markdown(dog.description)
+        # st.session_state.dogs_list[i+1].write("Miejsce")
+        st.session_state.dogs_list[i+1].write(dog.location)
         i += 2
 
 
@@ -38,7 +40,9 @@ def main():
         key="breed_selectbox"
     )
 
-    col_1, col_2 = st.columns(2)
+    columns_ratios = [0.3, 0.7]
+
+    col_1, col_2 = st.columns(columns_ratios)
     with col_1:
         st.write("Zdjęcie i imię")
     with col_2:
@@ -48,7 +52,7 @@ def main():
         st.session_state.dogs_list = []
 
     rows = [
-        st.columns(2) for _ in range(10)
+        st.columns(columns_ratios) for _ in range(10)
     ]
 
     st.session_state.dogs_list = []

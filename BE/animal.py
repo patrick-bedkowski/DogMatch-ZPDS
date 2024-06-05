@@ -52,6 +52,7 @@ class Animal(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     breed = Column(String, nullable=False)
+    location = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     photo = Column(VARBINARY, nullable=True)
     owner_id = Column(Integer, nullable=False)
@@ -94,6 +95,7 @@ class Animal(Base):
         self,
         name: str,
         breed: str,
+        location: str,
         description: str,
         photo,
         owner_id: int,
@@ -116,6 +118,7 @@ class Animal(Base):
     ):
         self.name = name
         self.breed = breed
+        self.location = location
         self.description = description
         self.photo = photo
         self.owner_id = owner_id
