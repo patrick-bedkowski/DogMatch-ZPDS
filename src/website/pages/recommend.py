@@ -32,8 +32,9 @@ def randomize_inputs():
         1, 5, size=len(st.session_state.traits)
     ).tolist()
 
-    # coat type
-    # st.session_state.user_input[6] = np.random.choice(f.get_coat_types_pl_db())
+    options = f.get_coat_types_pl_db()
+    trait_id = 6
+    st.session_state.user_input[trait_id] = np.random.choice(options)
 
 
 def reset_inputs():
@@ -53,18 +54,24 @@ def add_slider(trait_id: int, help_text: str = "TODO"):
         min_value=1,
         max_value=5,
         value=st.session_state.user_input[trait_id],
-        help=help_text
+        help=help_text,
+        key=f"slider_{trait_id}"
     )
 
 
 def add_coat_type_selectbox():
     trait_id = 6
+    if 'coat_options' not in st.session_state:
+        st.session_state.coat_options = f.get_coat_types_pl_db()
+    options = st.session_state.coat_options
+
     st.session_state.user_input[trait_id] = st.selectbox(
         label=st.session_state.traits[trait_id],
-        options=f.get_coat_types_pl_db(),
+        options=options,
         help="TODO",
         placeholder="Wybierz",
-        index=None
+        index=options.index(st.session_state.user_input[trait_id]) if st.session_state.user_input[trait_id] in options else 0,
+        key=f"selectbox_{trait_id}"
     )
 
 
