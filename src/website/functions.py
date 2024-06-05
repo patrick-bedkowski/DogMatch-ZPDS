@@ -7,7 +7,9 @@ import pandas as pd
 import streamlit as st
 
 import sys
-sys.path.append('../../../DogMatch')
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from BE import database
 # from BE import configuration
 from BE import seed_data, animal

@@ -8,8 +8,11 @@ import pickle
 import streamlit as st
 import json
 # import time
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-import functions as f
+from website import functions as f
 
 
 # Load the recommender model
