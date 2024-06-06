@@ -7,7 +7,7 @@ from BE.animal import (
     DictCoatLength, DictCoatType, DictDogBreed, DogBreed, Trait, Animal
 )
 from BE.configuration import (
-    TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
+    TRAITS_DESCRIPTION_PATH, TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
 )
 
 
@@ -103,15 +103,18 @@ def seedDataDogBreed(session, data_path, data_path_2) -> None:
     session.commit()
 
 
-def seedDataTrait(session, data_path) -> None:
+def seedDataTrait(session, data_path, description_data_path) -> None:
     df = pd.read_csv(data_path)
     names_en = df["en"].values.tolist()
     names_pl = df["pl"].values.tolist()
 
+    df_descriptions = pd.read_csv(description_data_path)
+    descriptions_en = df_descriptions["Description"].values.tolist()
+
     traits = [
-        Trait(name_en, name_pl)
-        for name_en, name_pl
-        in zip(names_en, names_pl)
+        Trait(name_en, name_pl, descriptions_en)
+        for name_en, name_pl, descriptions_en
+        in zip(names_en, names_pl, descriptions_en)
     ]
 
     for trait in traits:
@@ -156,5 +159,5 @@ def seedData(session, data_path) -> None:
     seedDataDictCoatLength(session, data_path)
     seedDataDictBreeds(session, data_path)
     seedDataDogBreed(session, data_path, BREED_RANK_PATH)
-    seedDataTrait(session, TRAITS_TRANSLATION_PATH)
+    seedDataTrait(session, TRAITS_TRANSLATION_PATH, TRAITS_DESCRIPTION_PATH)
     seedAnimal(session)

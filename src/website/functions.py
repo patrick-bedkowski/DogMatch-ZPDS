@@ -67,7 +67,8 @@ def get_traits_pl_db() -> list:
     traits = database.get_table(session, seed_data.Trait)
     session.close()
     return [
-        trait.name_pl
+        (trait.name_pl,
+         trait.description_eng)
         for trait in traits
     ]
 

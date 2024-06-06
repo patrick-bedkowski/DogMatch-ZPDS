@@ -262,11 +262,14 @@ class Trait(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name_en = Column(String, nullable=False)
     name_pl = Column(String, nullable=False)
+    description_eng = Column(String, nullable=True)
 
     def __init__(
         self,
         name_en: str,
         name_pl: str,
+        description_eng: str,
     ):
         self.name_en = name_en
         self.name_pl = name_pl
+        self.description_eng = description_eng

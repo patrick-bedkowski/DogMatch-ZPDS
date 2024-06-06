@@ -50,13 +50,13 @@ def reset_inputs():
     # ]
 
 
-def add_slider(trait_id: int, help_text: str = "TODO", max_value: int = 5):
+def add_slider(trait_id: int, max_value: int = 5):
     st.session_state.user_input[trait_id] = st.slider(
-        label=st.session_state.traits[trait_id],
+        label=st.session_state.traits[trait_id][0],
         min_value=1,
         max_value=max_value,
         value=st.session_state.user_input[trait_id],
-        help=help_text,
+        help=st.session_state.traits[trait_id][1],
         key=f"slider_{trait_id}"
     )
 
@@ -68,7 +68,7 @@ def add_coat_type_selectbox():
     options = st.session_state.coat_options
 
     st.session_state.user_input[trait_id] = st.selectbox(
-        label=st.session_state.traits[trait_id],
+        label=st.session_state.traits[trait_id][0],
         options=options,
         help="TODO",
         placeholder="Wybierz",
