@@ -80,7 +80,7 @@ def add_coat_type_selectbox():
     st.session_state.user_input[trait_id] = st.selectbox(
         label=st.session_state.traits[trait_id][0],
         options=options,
-        help="TODO",
+        help=st.session_state.traits[trait_id][1],
         placeholder="Wybierz",
         index=options.index(st.session_state.user_input[trait_id]) if st.session_state.user_input[trait_id] in options else 0,
         key=f"selectbox_{trait_id}",
