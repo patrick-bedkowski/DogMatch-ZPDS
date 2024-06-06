@@ -4,7 +4,7 @@ import sys
 sys.path.append('../DogMatch')
 from BE.database import get_foreign_key_id, row_exists
 from BE.animal import (
-    DictCoatLength, DictCoatType, DictDogBreed, DogBreed, Trait
+    DictCoatLength, DictCoatType, DictDogBreed, DogBreed, Trait, Animal
 )
 from BE.configuration import (
     TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
@@ -53,9 +53,9 @@ def seedDataDictCoatType(session, data_path) -> None:
         "Curly": "Kręcona",
         "Silky": "Jedwabna",
         "Wavy": "Falowana",
-        "Wiry": "Szorstka (Wiry)",
+        "Wiry": "Szorstka (EN: Wiry)",
         "Hairless": "Bezwłosy",
-        "Rough": "Szorstka (Rough)",
+        "Rough": "Szorstka (EN: Rough)",
         "Corded": "Sznurowana"
     }
 
@@ -120,9 +120,41 @@ def seedDataTrait(session, data_path) -> None:
     session.commit()
 
 
+def seedAnimal(session) -> None:
+    def read_photo(path):
+        with open(path, 'rb') as file:
+            return file.read()
+
+    dogs = []
+
+    dogs.append(Animal(
+        name="Szarik",
+        breed="German Shepherd Dogs",
+        location="T-34-85",
+        description="Pies brygady pancernej",
+        photo=read_photo("data/photos/szarik.jpg"),
+        owner_id=0
+    ))
+
+    dogs.append(Animal(
+        name="TEST",
+        breed="German Shepherd Dogs",
+        location="TEST",
+        description="TEST",
+        photo=read_photo("data/photos/0.jpg"),
+        owner_id=0
+    ))
+
+    for dog in dogs:
+        if not row_exists(session, "name", dog.name, Animal):
+            session.add(dog)
+    session.commit()
+
+
 def seedData(session, data_path) -> None:
     seedDataDictCoatType(session, data_path)
     seedDataDictCoatLength(session, data_path)
     seedDataDictBreeds(session, data_path)
     seedDataDogBreed(session, data_path, BREED_RANK_PATH)
     seedDataTrait(session, TRAITS_TRANSLATION_PATH)
+    seedAnimal(session)
