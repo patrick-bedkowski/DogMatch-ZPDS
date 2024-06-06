@@ -28,7 +28,7 @@ def main():
     Aby temu zapobiec, powstała nowatorska aplikacja DogMatch! Na podstawie autorskiego modelu sztucznej inteligencji pomaga ona w doborze odpowiedniej rasy psa 
     po zadaniu kilku prostych pytań na które odpowiada użytkownik. Procedura rekomendacji z perspektywy przyszłego właściciela jest szybka, prosta i intuicyjna.
 
-                Ponadto, aplikacja jest swoistą platformą łączącą schroniska, przytułki, domy tymczasowe oraz hodowle z osobami poszukującymi psa.
+    Ponadto, aplikacja jest swoistą platformą łączącą schroniska, przytułki, domy tymczasowe oraz hodowle z osobami poszukującymi psa.
     Dzięki intuicyjnemu mechanizmowi dodawania i przeglądania psów, użytkownicy po zdecydowaniu się na daną rasę, mogą wygodnie przejrzeć psy czekające na dom w całej Polsce.
     Wszystko to po to, aby jak najwięcej psów znalazło swoje nowe, kochające domy, a nowi właściciele byli zadowoleni z podjętej decyzji.
 
