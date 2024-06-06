@@ -165,7 +165,7 @@ def seedAnimal(session) -> None:
         breed="German Shepherd Dogs",
         location="Łódź",
         description="Gwiazda polskiego serialu, zawsze gotowy do akcji. \
-            z takim psem na pewno polecą na Ciebie młode rude aspirantki. Szacunek na komendzie gwarantowany.",
+            Z takim psem na pewno polecą na Ciebie młode rude aspirantki. Szacunek na komendzie gwarantowany.",
         photo=read_photo("data/photos/alex.jpg"),
         owner_id=0
     ))
