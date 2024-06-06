@@ -218,6 +218,21 @@ def adjust_padding():
     )
 
 
+def adjust_images():
+    st.markdown(
+        """
+        <style>
+        [data-testid="stImageCaption"] {
+            font-size: 20px;
+            padding-top: 0px;
+            color: rgb(255, 255, 255);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def setup_page():
     # st.set_page_config(layout="wide")
     st.set_page_config(page_title="DogMatch", page_icon="🐶", initial_sidebar_state="collapsed")

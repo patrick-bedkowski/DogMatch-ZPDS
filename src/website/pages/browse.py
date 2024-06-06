@@ -29,6 +29,7 @@ def update_dogs_list():
 def main():
     f.setup_page()
     f.add_back_button()
+    f.adjust_images()
 
     st.header("Przeglądanie psów")
 
