@@ -43,7 +43,7 @@ def main():
     - Patryk Będkowski
     - Paweł Baran
 
-    Model został oparty o bibliotekę  [Recommenders Github](https://github.com/recommenders-team/recommenders). WYkorzystywany zbiór danych to [Dog Breeds](https://www.kaggle.com/datasets/sujaykapadnis/dog-breeds).
+    Model został oparty o bibliotekę  [Recommenders Github](https://github.com/recommenders-team/recommenders). Wykorzystywany zbiór danych to [Dog Breeds](https://www.kaggle.com/datasets/sujaykapadnis/dog-breeds).
                 
     Aplikacja DogMatch powstała w ramach przedmiotu Zarządzanie Produktami Data science na Wydziale Elektroniki i Technik Informacyjnych Politechniki Warszawskiej. 
     """)
