@@ -155,7 +155,7 @@ def seedAnimal(session) -> None:
         name="K-9000",
         breed="Rottweilers",
         location="Yara Island",
-        description="Wcielony diabeł, odgryzie jajca każdemu, kto zagraża jego panu. \
+        description="Wcielony wojownik, zaatakuje każdego kto zagraża jego panu. \
             Legenda głosi, że Anton Castillo zachorował na gruźlicę jak go spotkał. \
             Posiada dziwną dolegliwość, mianowicie jego sierść jest tytanowa, a oczy świecą mu się na czerwono. \
             Podobno jego pierwszym właścicielem był T-1000",
