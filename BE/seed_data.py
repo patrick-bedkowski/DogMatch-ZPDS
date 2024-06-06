@@ -136,7 +136,7 @@ def seedAnimal(session) -> None:
         location="T-34-85 Rudy, między Studziankami a Berlinem",
         description="Choć jest owczarkiem niemieckim, niemcy się go boją. Nie wymaga dużej uwagi, zje cokolwiek mu podasz.\
               Jak pokażesz się z nim w parku, wszystkie radzieckie łączniczki będą na Ciebie leciały, a gruzińscy mechanicy będą mieli do Ciebie respekt. \
-              Dobry do polowania na tygrysy syberyjskie",
+              Dobry do polowania na tygrysy syberyjskie.",
         photo=read_photo("data/photos/szarik.jpg"),
         owner_id=0
     ))
