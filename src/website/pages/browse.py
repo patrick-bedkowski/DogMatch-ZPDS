@@ -32,7 +32,7 @@ def main():
     st.header("Przeglądanie psów")
 
     breeds = f.get_breeds_db()
-    breeds.insert(0, "")
+    breeds.insert(0, "WSZYSTKIE")
     st.selectbox(
         'Rasa',
         breeds,
@@ -65,6 +65,10 @@ def main():
                 height = 250
             container = col.container(height=height, border=False)
             st.session_state.dogs_list.append(container)
+
+    if "list_initialized" not in st.session_state:
+        update_dogs_list()
+        st.session_state.list_initialized = True
 
 
 if __name__ == "__main__":

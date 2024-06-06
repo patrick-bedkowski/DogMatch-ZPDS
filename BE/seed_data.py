@@ -138,7 +138,7 @@ def seedAnimal(session) -> None:
 
     dogs.append(Animal(
         name="TEST",
-        breed="German Shepherd Dogs",
+        breed="Pugs",
         location="TEST",
         description="TEST",
         photo=read_photo("data/photos/0.jpg"),
