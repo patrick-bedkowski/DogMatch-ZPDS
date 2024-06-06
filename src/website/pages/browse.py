@@ -20,9 +20,9 @@ def update_dogs_list():
     for dog in dogs_of_breed:
         st.session_state.dogs_list[i].image(dog.photo, width=200, caption=dog.name)
         st.session_state.dogs_list[i+1].markdown(dog.description)
-        st.session_state.dogs_list[i+1].markdown(dog.breed)
+        st.session_state.dogs_list[i+1].markdown(f"Rasa: {dog.breed}")
         # st.session_state.dogs_list[i+1].write("Miejsce")
-        st.session_state.dogs_list[i+1].write(dog.location)
+        st.session_state.dogs_list[i+1].write(f"Lokalizacja: {dog.location}")
         i += 2
 
 
