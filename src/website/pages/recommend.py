@@ -63,18 +63,13 @@ def add_slider(trait_id: int, max_value: int = 5):
 
 def add_coat_type_selectbox():
     trait_id = 6
-    if 'coat_options' not in st.session_state:
-        st.session_state.coat_options = f.get_coat_types_pl_db()
-    options = st.session_state.coat_options
 
     st.session_state.user_input[trait_id] = st.selectbox(
         label=st.session_state.traits[trait_id][0],
-        options=options,
+        options=f.get_coat_types_pl_db(),
         help="TODO",
         placeholder="Wybierz",
-        index=options.index(st.session_state.user_input[trait_id]) if st.session_state.user_input[trait_id] in options else 0,
-        key=f"selectbox_{trait_id}"
-    )
+        index=None)
 
 
 # Recommend the breed based on user input

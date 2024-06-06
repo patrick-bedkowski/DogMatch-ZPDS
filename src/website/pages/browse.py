@@ -53,7 +53,7 @@ def main():
         st.session_state.dogs_list = []
 
     rows = [
-        st.columns(columns_ratios) for _ in range(10)
+        st.columns(columns_ratios) for _ in range(len(f.get_dogs_of_breed_db("WSZYSTKIE")))
     ]
 
     st.session_state.dogs_list = []

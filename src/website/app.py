@@ -12,7 +12,12 @@ import functions as f
 
 
 def main():
-    f.prepare_db()
+
+    if 'initialized' not in st.session_state:
+        # Perform initialization steps
+        f.prepare_db()        
+        # Set up the session state flag to indicate initialization is done
+        st.session_state.initialized = True
 
     f.setup_page()
     f.add_app_header()

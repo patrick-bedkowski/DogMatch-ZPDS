@@ -271,7 +271,7 @@ def seedAnimal(session) -> None:
         photo=read_photo("data/photos/bethoven.jpg"),
         owner_id=0
     ))
-    for i in range(1, 102):
+    for i in range(1, 12):
         dogs.append(Animal(
             name="Dalmatyńczyk " + str(i),
             breed="Dalmatians",
