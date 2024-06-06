@@ -12,10 +12,13 @@ from BE.configuration import (
 from PIL import Image
 from io import BytesIO
 
+UNDEFINED_BREED_PL = "Nieokreślona"
+
 
 def seedDataDictBreeds(session, data_path) -> None:
     data = pd.read_csv(data_path)
-    code_to_breed = {code: breed for code, breed in enumerate(data["Breed"].unique())}
+    code_to_breed = {code+1: breed for code, breed in enumerate(data["Breed"].unique())}
+    code_to_breed[0] = UNDEFINED_BREED_PL
 
     breeds = [DictDogBreed(key, value) for key, value in code_to_breed.items()]
 
@@ -102,6 +105,31 @@ def seedDataDogBreed(session, data_path, data_path_2) -> None:
 
         if not row_exists(session, "dict_breed_id", dog_breed.dict_breed_id, DogBreed):
             session.add(dog_breed)
+
+    undefined_breed = DogBreed(
+        dict_breed_id=get_foreign_key_id(session, DictDogBreed, UNDEFINED_BREED_PL),
+        photo_url=None,
+        info_url=None,
+        affectionate_with_family=3,
+        good_with_young_children=3,
+        good_with_other_dogs=3,
+        shedding_level=3,
+        coat_grooming_frequency=3,
+        drooling_level=3,
+        coat_type=0,
+        coat_length=1,
+        openness_to_strangers=3,
+        playfulness_level=3,
+        watchdog_protective_nature=3,
+        adaptability_level=3,
+        trainability_level=3,
+        energy_level=3,
+        barking_level=3,
+        mental_stimulation_needs=3,
+    )
+    if not row_exists(session, "dict_breed_id", undefined_breed.dict_breed_id, DogBreed):
+        session.add(undefined_breed)
+
     session.commit()
 
 
