@@ -16,11 +16,11 @@ def main():
     # f.add_app_header()
     f.add_back_button()
 
-    with st.popover(":orange[Opcje deweloperskie]"):
-        st.button(label=":red[Czyszczenie tabeli \"Animals\"]", on_click=f.clear_animals_table_db)
+    with open('./src/website/pages/about.md', 'r', encoding="utf-8") as file:
+        st.markdown(file.read())
 
-    st.header("O aplikacji")
-    st.write("TODO")  # TODO: provide information about the app
+    with st.popover(":white[Opcje deweloperskie]"):
+        st.button(label=":red[Czyszczenie tabeli \"Animals\"]", on_click=f.clear_animals_table_db)
 
 
 if __name__ == "__main__":

@@ -19,16 +19,17 @@ def update_dogs_list():
     i = 0
     for dog in dogs_of_breed:
         st.session_state.dogs_list[i].image(dog.photo, width=200, caption=dog.name)
-        st.session_state.dogs_list[i+1].markdown(dog.breed)
         st.session_state.dogs_list[i+1].markdown(dog.description)
+        st.session_state.dogs_list[i+1].markdown(f"Rasa: {dog.breed}")
         # st.session_state.dogs_list[i+1].write("Miejsce")
-        st.session_state.dogs_list[i+1].write(dog.location)
+        st.session_state.dogs_list[i+1].write(f"Lokalizacja: {dog.location}")
         i += 2
 
 
 def main():
     f.setup_page()
     f.add_back_button()
+    f.adjust_images()
 
     st.header("Przeglądanie psów")
 
@@ -53,7 +54,7 @@ def main():
         st.session_state.dogs_list = []
 
     rows = [
-        st.columns(columns_ratios) for _ in range(10)
+        st.columns(columns_ratios) for _ in range(len(f.get_dogs_of_breed_db("WSZYSTKIE")))
     ]
 
     st.session_state.dogs_list = []
