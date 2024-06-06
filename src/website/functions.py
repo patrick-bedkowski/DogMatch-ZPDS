@@ -122,6 +122,18 @@ def get_breed_image_url_db(breed_name: str) -> str:
     return None
 
 
+def get_breed_info_url_db(breed_name: str) -> str:
+    sessionmaker = database.createConnection()
+    session = sessionmaker()
+    breed_id = get_breed_id_db(breed_name)
+    breeds = database.get_table(session, seed_data.DogBreed)
+    session.close()
+    for breed in breeds:
+        if breed.dict_breed_id == breed_id:
+            return breed.info_url
+    return None
+
+
 def add_dog_to_db(name, breed, location, description, photo, owner_id):
     sessionmaker = database.createConnection()
     session = sessionmaker()

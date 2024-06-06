@@ -48,11 +48,11 @@ def reset_inputs():
     # ]
 
 
-def add_slider(trait_id: int, help_text: str = "TODO"):
+def add_slider(trait_id: int, help_text: str = "TODO", max_value: int = 5):
     st.session_state.user_input[trait_id] = st.slider(
         label=st.session_state.traits[trait_id],
         min_value=1,
-        max_value=5,
+        max_value=max_value,
         value=st.session_state.user_input[trait_id],
         help=help_text,
         key=f"slider_{trait_id}"
@@ -92,9 +92,8 @@ def recommend():
     #     for x in st.session_state.user_input
     # ]
     # user_input_converted[7] = st.session_state.user_input[7]  # coat length should be in range 1-3
-
     user_input_converted = st.session_state.user_input
-    user_input_converted[7] = int((st.session_state.user_input[7] - 1) * 2/4 + 1)  # coat length should be in range 1-3
+    # user_input_converted[7] = int((st.session_state.user_input[7] - 1) * 2/4 + 1)  # coat length should be in range 1-3
 
     print("\n===SCALED INPUT===")
     for trait, value in zip(st.session_state.traits, user_input_converted):
@@ -110,7 +109,7 @@ def recommend():
         st.session_state.breed_image_url = f.get_breed_image_url_db(breed)
         print(f"\nRecommended breed: {breed}")
         st.session_state.recommendation = (
-            f"Rekomendowana rasa to: \"{breed}\""
+            f"Rekomendowana rasa to: \"{breed}\" ({f.get_breed_info_url_db(breed)})"
             # "[Przeglądaj dostępne psy](Przeglądaj_Psy)"
         )
         st.session_state.error_message = ""
@@ -168,9 +167,8 @@ def main():
             col_1, col_2 = st.columns(2)
             with col_1:
                 add_slider(5)
-                # add_slider(6)  # this is coat type, it has to be a dropdown
                 add_coat_type_selectbox()
-                add_slider(7)
+                add_slider(7, max_value=3)
             with col_2:
                 add_slider(3)
                 add_slider(4)

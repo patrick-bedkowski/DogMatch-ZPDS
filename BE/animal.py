@@ -163,6 +163,7 @@ class DogBreed(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     dict_breed_id = Column(Integer, ForeignKey("dict_dog_breed.id"), nullable=False)
     photo_url = Column(String, nullable=True)
+    info_url = Column(String, nullable=True)
 
     affectionate_with_family = Column(Integer, nullable=False)
     good_with_young_children = Column(Integer, nullable=False)
@@ -202,6 +203,7 @@ class DogBreed(Base):
         self,
         dict_breed_id: int,
         photo_url: str,
+        info_url: str,
         affectionate_with_family: int,
         good_with_young_children: int,
         good_with_other_dogs: int,
@@ -221,6 +223,7 @@ class DogBreed(Base):
     ):
         self.dict_breed_id = dict_breed_id
         self.photo_url = photo_url
+        self.info_url = info_url
         self.affectionate_with_family = affectionate_with_family
         self.good_with_young_children = good_with_young_children
         self.good_with_other_dogs = good_with_other_dogs
@@ -240,7 +243,8 @@ class DogBreed(Base):
 
     def __repr__(self):
         return (
-            f"<Animal(dict_breed_id={self.dict_breed_id}, photo_url={self.photo_url}, affectionate_with_family={self.affectionate_with_family}, "
+            f"<Animal(dict_breed_id={self.dict_breed_id}, photo_url={self.photo_url}, info_url={self.info_url}, "
+            f"affectionate_with_family={self.affectionate_with_family}, "
             f"good_with_young_children={self.good_with_young_children}, good_with_other_dogs={self.good_with_other_dogs}, "
             f"shedding_level={self.shedding_level}, coat_grooming_frequency={self.coat_grooming_frequency}, "
             f"drooling_level={self.drooling_level}, coat_type='{self.coat_type}', coat_length='{self.coat_length}', "

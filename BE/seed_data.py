@@ -79,6 +79,7 @@ def seedDataDogBreed(session, data_path, data_path_2) -> None:
         dog_breed = DogBreed(
             dict_breed_id=dict_breed_id,
             photo_url=data_2.iloc[i]["Image"],
+            info_url=data_2.iloc[i]["links"],
             affectionate_with_family=row["Affectionate With Family"],
             good_with_young_children=row["Good With Young Children"],
             good_with_other_dogs=row["Good With Other Dogs"],
