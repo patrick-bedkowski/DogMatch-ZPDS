@@ -50,6 +50,14 @@ def reset_inputs():
     # ]
 
 
+def toogle_traits():
+    for trait_id in range(len(st.session_state.traits)):
+        if trait_id == 6:
+            st.session_state.traits_disabled[trait_id] = not st.session_state[f"selectbox_{trait_id}"]
+        else:
+            st.session_state.traits_disabled[trait_id] = not st.session_state[f"toogle_{trait_id}"]
+
+
 def add_slider(trait_id: int, max_value: int = 5):
     st.session_state.user_input[trait_id] = st.slider(
         label=st.session_state.traits[trait_id][0],
@@ -57,8 +65,10 @@ def add_slider(trait_id: int, max_value: int = 5):
         max_value=max_value,
         value=st.session_state.user_input[trait_id],
         help=st.session_state.traits[trait_id][1],
-        key=f"slider_{trait_id}"
+        key=f"slider_{trait_id}",
+        disabled=st.session_state.traits_disabled[trait_id]
     )
+    st.toggle("Toogle", label_visibility="hidden", key=f"toogle_{trait_id}", on_change=toogle_traits, value=True)
 
 
 def add_coat_type_selectbox():
@@ -73,8 +83,10 @@ def add_coat_type_selectbox():
         help="TODO",
         placeholder="Wybierz",
         index=options.index(st.session_state.user_input[trait_id]) if st.session_state.user_input[trait_id] in options else 0,
-        key=f"selectbox_{trait_id}"
+        key=f"selectbox_{trait_id}",
+        disabled=st.session_state.traits_disabled[trait_id]
     )
+    st.toggle("Toogle", label_visibility="hidden", key=f"toogle_{trait_id}", on_change=toogle_traits, value=True)
 
 
 # Recommend the breed based on user input
@@ -95,11 +107,17 @@ def recommend():
     # ]
     # user_input_converted[7] = st.session_state.user_input[7]  # coat length should be in range 1-3
     user_input_converted = st.session_state.user_input
+
+    # Disable some traits
+    for trait_id in range(len(user_input_converted)):
+        if st.session_state.traits_disabled[trait_id]:
+            user_input_converted[trait_id] = None
+
     # user_input_converted[7] = int((st.session_state.user_input[7] - 1) * 2/4 + 1)  # coat length should be in range 1-3
 
-    print("\n===SCALED INPUT===")
+    print("\n===PROCESSED INPUT===")
     for trait, value in zip(st.session_state.traits, user_input_converted):
-        print(trait, value)
+        print(value)
 
     recommender = load_model()
     code_to_breed = load_code_to_breed()
@@ -137,6 +155,12 @@ def main():
         st.session_state.error_message = ""
     if "breed_image_url" not in st.session_state:
         st.session_state.breed_image_url = ""
+    if 'traits_disabled' not in st.session_state:
+        st.session_state.traits_disabled = {
+            trait_id: False
+            for trait_id, trait
+            in enumerate(st.session_state.traits)
+        }
 
     with st.container():
         st.write("na podstawie Twoich preferencji dotyczących cech psa")
