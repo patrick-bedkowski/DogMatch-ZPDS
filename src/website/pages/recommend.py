@@ -29,16 +29,18 @@ def load_code_to_breed():
 
 def randomize_inputs():
     st.session_state.user_input = np.random.randint(
-        1, 5, size=len(st.session_state.traits)
+        1, 6, size=len(st.session_state.traits)
     ).tolist()
 
     options = f.get_coat_types_pl_db()
-    trait_id = 6
-    st.session_state.user_input[trait_id] = np.random.choice(options)
+    st.session_state.user_input[6] = np.random.choice(options)
+    st.session_state.user_input[7] = np.random.randint(1, 4)
 
 
 def reset_inputs():
     st.session_state.user_input = [3] * len(st.session_state.traits)
+    st.session_state.user_input[6] = None
+    st.session_state.user_input[7] = 2
 
     # coat type
     # st.session_state.user_input[6] = None
