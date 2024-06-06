@@ -176,7 +176,7 @@ def seedAnimal(session) -> None:
         name="Lassie",
         breed="Collies",
         location="Szkocja",
-        description="Najwierniejsza suka jaką mamy w bazie. Nawet jak ją sprzedasz,\
+        description="Najwierniejsza suczka jaką mamy w bazie. Nawet jak ją sprzedasz,\
               wróci do Ciebie z powrotem choćby miała iść setki kilometrów przez góry.",
         photo=read_photo("data/photos/lassie.jpg"),
         owner_id=0
