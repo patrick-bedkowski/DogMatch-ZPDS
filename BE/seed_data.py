@@ -9,6 +9,8 @@ from BE.animal import (
 from BE.configuration import (
     TRAITS_DESCRIPTION_PATH, TRAITS_TRANSLATION_PATH, BREED_RANK_PATH
 )
+from PIL import Image
+from io import BytesIO
 
 
 def seedDataDictBreeds(session, data_path) -> None:
@@ -124,9 +126,25 @@ def seedDataTrait(session, data_path, description_data_path) -> None:
 
 
 def seedAnimal(session) -> None:
+    def process_image(image):
+        im = Image.open(image)
+        width, height = im.size
+        new_width, new_height = min(im.size), min(im.size)
+
+        left = (width - new_width) / 2
+        top = (height - new_height) / 2
+        right = (width + new_width) / 2
+        bottom = (height + new_height) / 2
+        im = im.crop((left, top, right, bottom))
+
+        img_byte_arr = BytesIO()
+        im.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
+        return img_byte_arr
+
     def read_photo(path):
         with open(path, 'rb') as file:
-            return file.read()
+            return process_image(file)
 
     dogs = []
 
@@ -135,7 +153,8 @@ def seedAnimal(session) -> None:
         breed="German Shepherd Dogs",
         location="T-34-85 Rudy, między Studziankami a Berlinem",
         description="Choć jest owczarkiem niemieckim, niemcy się go boją. Nie wymaga dużej uwagi, zje cokolwiek mu podasz.\
-              Jak pokażesz się z nim w parku, wszystkie radzieckie łączniczki będą na Ciebie leciały, a gruzińscy mechanicy będą mieli do Ciebie respekt. \
+              Jak pokażesz się z nim w parku, wszystkie radzieckie łączniczki będą na Ciebie leciały, \
+              a gruzińscy mechanicy będą mieli do Ciebie respekt. \
               Dobry do polowania na tygrysy syberyjskie.",
         photo=read_photo("data/photos/szarik.jpg"),
         owner_id=0

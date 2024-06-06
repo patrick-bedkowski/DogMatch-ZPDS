@@ -5,6 +5,8 @@
 
 import pandas as pd
 import streamlit as st
+from PIL import Image
+from io import BytesIO
 
 import sys
 import os
@@ -146,6 +148,23 @@ def add_dog_to_db(name, breed, location, description, photo, owner_id):
     session.commit()
     session.close()
     return True
+
+
+def process_image(image):
+    im = Image.open(image)
+    width, height = im.size
+    new_width, new_height = min(im.size), min(im.size)
+
+    left = (width - new_width) / 2
+    top = (height - new_height) / 2
+    right = (width + new_width) / 2
+    bottom = (height + new_height) / 2
+    im = im.crop((left, top, right, bottom))
+
+    img_byte_arr = BytesIO()
+    im.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+    return img_byte_arr
 
 
 def add_app_header():

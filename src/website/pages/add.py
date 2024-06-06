@@ -18,7 +18,7 @@ def add_dog():
             st.session_state.breed,
             st.session_state.location,
             st.session_state.description,
-            st.session_state.photo.read(),
+            f.process_image(st.session_state.photo),
             0  # TODO
         )
 
@@ -70,8 +70,9 @@ def main():
     )
 
     st.session_state.photo = st.file_uploader(
-        label="Zdjęcie", type=["png", "jpg", "bmp", "tiff"]
+        label="Zdjęcie", type=["png", "jpg", "bmp"]
     )
+    st.info('Preferowane są zdjęcia kwadratowe, zdjęcia o innych proporcjach zostaną przycięte.', icon="ℹ️")
 
     st.button("Dodaj", on_click=add_dog, type="primary", use_container_width=True)
 
