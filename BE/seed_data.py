@@ -216,7 +216,7 @@ def seedAnimal(session) -> None:
         name="Clifford",
         breed="Cavalier King Charles Spaniels",
         location="Wielka Brytania",
-        description="Charakterystyczny czerwony kolor to nie jedyna cecha dzięki której nigdy go nie zgubisz\
+        description="Charakterystyczny czerwony kolor to nie jedyna cecha dzięki której nigdy go nie zgubisz.\
             Pomocny, choć często niezdarny. Pies koleżanki Twojej starej, Emily Elizabeth.",
         photo=read_photo("data/photos/cliford.jpg"),
         owner_id=0
