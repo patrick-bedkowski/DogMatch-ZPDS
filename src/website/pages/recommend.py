@@ -50,10 +50,7 @@ def reset_inputs():
 
 def toogle_traits():
     for trait_id in range(len(st.session_state.traits)):
-        if trait_id == 6:
-            st.session_state.traits_disabled[trait_id] = not st.session_state[f"selectbox_{trait_id}"]
-        else:
-            st.session_state.traits_disabled[trait_id] = not st.session_state[f"toogle_{trait_id}"]
+        st.session_state.traits_disabled[trait_id] = not st.session_state[f"toogle_{trait_id}"]
 
 
 def add_slider(trait_id: int, max_value: int = 5):
@@ -78,6 +75,7 @@ def add_coat_type_selectbox():
         help=st.session_state.traits[trait_id][1],
         placeholder="Wybierz",
         index=None,
+        key=f"selectbox_{trait_id}",
         disabled=st.session_state.traits_disabled[trait_id]
     )
     st.toggle("Toogle", label_visibility="hidden", key=f"toogle_{trait_id}", on_change=toogle_traits, value=True)
@@ -85,12 +83,7 @@ def add_coat_type_selectbox():
 
 # Recommend the breed based on user input
 def recommend():
-    if not st.session_state.user_input[6]:
-        st.session_state.breed_image_url = ""
-        st.session_state.recommendation = ""
-        st.session_state.error_message = "Wybierz preferowany rodzaj sierści"
-        return
-    else:
+    if st.session_state.user_input[6]:
         # get numeric value of coat type
         st.session_state.user_input[6] = f.get_coat_type_id_db(st.session_state.user_input[6])
 
