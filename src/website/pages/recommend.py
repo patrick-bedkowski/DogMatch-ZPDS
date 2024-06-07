@@ -32,8 +32,6 @@ def randomize_inputs():
         1, 6, size=len(st.session_state.traits)
     ).tolist()
 
-    options = f.get_coat_types_pl_db()
-    st.session_state.user_input[6] = np.random.choice(options)
     st.session_state.user_input[7] = np.random.randint(1, 4)
 
 
@@ -73,17 +71,13 @@ def add_slider(trait_id: int, max_value: int = 5):
 
 def add_coat_type_selectbox():
     trait_id = 6
-    if 'coat_options' not in st.session_state:
-        st.session_state.coat_options = f.get_coat_types_pl_db()
-    options = st.session_state.coat_options
 
     st.session_state.user_input[trait_id] = st.selectbox(
         label=st.session_state.traits[trait_id][0],
-        options=options,
+        options=f.get_coat_types_pl_db(),
         help=st.session_state.traits[trait_id][1],
         placeholder="Wybierz",
-        index=options.index(st.session_state.user_input[trait_id]) if st.session_state.user_input[trait_id] in options else 0,
-        key=f"selectbox_{trait_id}",
+        index=None,
         disabled=st.session_state.traits_disabled[trait_id]
     )
     st.toggle("Toogle", label_visibility="hidden", key=f"toogle_{trait_id}", on_change=toogle_traits, value=True)
