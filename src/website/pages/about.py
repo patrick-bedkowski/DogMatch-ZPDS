@@ -13,7 +13,6 @@ from website import functions as f
 
 def main():
     f.setup_page()
-    # f.add_app_header()
     f.add_back_button()
 
     with open('./src/website/pages/about.md', 'r', encoding="utf-8") as file:

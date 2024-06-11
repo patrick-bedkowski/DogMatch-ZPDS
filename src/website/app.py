@@ -15,7 +15,7 @@ def main():
 
     if 'initialized' not in st.session_state:
         # Perform initialization steps
-        f.prepare_db()        
+        f.prepare_db()
         # Set up the session state flag to indicate initialization is done
         st.session_state.initialized = True
 

@@ -7,7 +7,6 @@ import numpy as np
 import pickle
 import streamlit as st
 import json
-# import time
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -39,13 +38,6 @@ def reset_inputs():
     st.session_state.user_input = [3] * len(st.session_state.traits)
     st.session_state.user_input[6] = None
     st.session_state.user_input[7] = 2
-
-    # coat type
-    # st.session_state.user_input[6] = None
-    # st.session_state.user_input = [
-    #     2 if i != 6 else "Test"
-    #     for i, trait in enumerate(st.session_state.traits)
-    # ]
 
 
 def toogle_traits():
@@ -87,20 +79,12 @@ def recommend():
         # get numeric value of coat type
         st.session_state.user_input[6] = f.get_coat_type_id_db(st.session_state.user_input[6])
 
-    # # map from 1-3 range to 1-5 range
-    # user_input_converted = [
-    #     (x-1) * (4/2) + 1
-    #     for x in st.session_state.user_input
-    # ]
-    # user_input_converted[7] = st.session_state.user_input[7]  # coat length should be in range 1-3
     user_input_converted = st.session_state.user_input
 
     # Disable some traits
     for trait_id in range(len(user_input_converted)):
         if st.session_state.traits_disabled[trait_id]:
             user_input_converted[trait_id] = None
-
-    # user_input_converted[7] = int((st.session_state.user_input[7] - 1) * 2/4 + 1)  # coat length should be in range 1-3
 
     print("\n===PROCESSED INPUT===")
     for trait, value in zip(st.session_state.traits, user_input_converted):
@@ -117,7 +101,6 @@ def recommend():
         print(f"\nRecommended breed: {breed}")
         st.session_state.recommendation = (
             f"Rekomendowana rasa to: \"{breed}\" ({f.get_breed_info_url_db(breed)})"
-            # "[Przeglądaj dostępne psy](Przeglądaj_Psy)"
         )
         st.session_state.error_message = ""
     else:
@@ -190,7 +173,6 @@ def main():
         st.button("Losowe", on_click=randomize_inputs, use_container_width=True)
         if st.button("Rekomenduj", type="primary", use_container_width=True):
             with st.spinner('Przygotowywanie rekomendacji...'):
-                # time.sleep(1)
                 recommend()
 
         # Placeholders
