@@ -1,4 +1,4 @@
-import 'package:dog_match/main_screen.dart';
+import 'package:dog_match/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,4 +1,5 @@
-import 'package:dog_match/test_screen.dart';
+import 'package:dog_match/screens/giving_up_form.dart';
+import 'package:dog_match/screens/looking_form.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenPage extends StatefulWidget {
@@ -30,16 +31,6 @@ class _MainScreenPageState extends State<MainScreenPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          const TestScreenPage()),
-                );
-              },
-              child: const Text('Click Me'),
-            ),
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -47,6 +38,29 @@ class _MainScreenPageState extends State<MainScreenPage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const LookingFormPage()),
+                      );
+                    },
+                    child: Text("Looking for a dog")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const GivingUpFormPage()),
+                      );
+                    },
+                    child: Text("Giving up a dog"))
+              ],
+            )
           ],
         ),
       ),
