@@ -24,7 +24,6 @@ class _MainScreenPageState extends State<MainScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
@@ -46,7 +45,7 @@ class _MainScreenPageState extends State<MainScreenPage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                const LookingFormPage()),
+                                LookingFormPage()),
                       );
                     },
                     child: Text("Looking for a dog")),

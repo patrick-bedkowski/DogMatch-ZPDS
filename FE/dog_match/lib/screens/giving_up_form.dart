@@ -14,6 +14,7 @@ class _GivingUpFormPageState extends State<GivingUpFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Describe your dog"),
+        automaticallyImplyLeading: false,
       ),
       body: Form(
         child: Padding(

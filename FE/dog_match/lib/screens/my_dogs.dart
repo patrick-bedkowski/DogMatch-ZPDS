@@ -27,7 +27,7 @@ class MyDogsPage extends StatelessWidget {
                         builder: (BuildContext context) => const ShowDogPage()),
                   );
                 },
-                child: Text("Dog 1"))
+                child: Text("Dog 2"))
           ],
         ));
   }
